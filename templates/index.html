@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NASA NEO Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <!-- Welcome Modal -->
+    <div id="welcomeModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h2>Welcome to the NASA NEO Dashboard!</h2>
+            <p>
+                This dashboard visualizes and analyzes Near-Earth Object (asteroid) data from NASA.<br><br>
+                <strong>Features:</strong>
+                <ul>
+                    <li>View real-time asteroid data fetched from NASA's API</li>
+                    <li>See risk scores and hazard predictions for each asteroid</li>
+                    <li>Explore feature importances used by the machine learning model</li>
+                    <li>Download a PDF report of your predictions</li>
+                    <li>Retrain the model with the latest data</li>
+                </ul>
+                <strong>How to use:</strong>
+                <ul>
+                    <li>Browse the dashboard for up-to-date asteroid information</li>
+                    <li>Check the "Risk Score" column for color-coded risk levels</li>
+                    <li>Click "Retrain Model" to update predictions with new data</li>
+                    <li>Click "Download Report" to save a summary of your results</li>
+                </ul>
+                <em>All data and predictions are for educational and demonstration purposes only.</em>
+            </p>
+        </div>
+    </div>
+    <div class="container">
+        <h2>Predict Asteroid Hazard</h2>
+        <form method="POST" action="/retrain" style="margin-bottom: 2em;">
+            <button type="submit">🔁 Retrain Model</button>
+        </form>
+        <form method="POST" action="/predict">
+            <div>
+                <label>Diameter (m):</label>
+                <input type="number" step="any" name="diameter" required>
+            </div>
+            <div>
+                <label>Velocity (km/h):</label>
+                <input type="number" step="any" name="velocity" required>
+            </div>
+            <div>
+                <label>Distance (km):</label>
+                <input type="number" step="any" name="distance" required>
+            </div>
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if prediction is not none %}
+        <div class="alert alert-{{ 'danger' if prediction == 'Yes' else 'success' }}">
+            <strong>Prediction:</strong> {{ '🚨 Potentially Hazardous!' if prediction == 'Yes' else '✅ Safe' }}
+            {% if confidence is not none %}
+                <span style="margin-left: 1em;">Confidence: {{ (confidence * 100) | round(1) }}%</span>
+            {% endif %}
+        </div>
+        <form method="GET" action="/download_report" style="margin-bottom: 1.5em;">
+            <button type="submit" style="background:#059669; margin-top:0.5em;">⬇️ Download Report</button>
+        </form>
+        {% endif %}
+
+        <h2 class="chart-title">Near-Earth Asteroids Detected This Week</h2>
+        <div class="chart-section">
+            <canvas id="sizeChart"></canvas>
+        </div>
+
+        <h3 class="chart-title">Diameter vs Approach Distance</h3>
+        <div class="chart-section">
+            <canvas id="scatterChart"></canvas>
+        </div>
+
+        <h2 class="chart-title">Model Evaluation: Confusion Matrix</h2>
+        <div class="chart-section">
+            <img src="{{ url_for('static', filename='confusion_matrix.png') }}" alt="Confusion Matrix">
+        </div>
+
+        <h2 class="chart-title">Feature Importance</h2>
+        <div class="chart-section">
+            <img src="{{ url_for('static', filename='feature_importance.png') }}" alt="Feature Importance Chart">
+        </div>
+
+        {% if importances %}
+        <div class="feature-importance-list">
+            <div class="feature-importance-title">Feature Importances</div>
+            <div class="feature-importance-items">
+                {% for feature, value in importances.items() %}
+                    <div class="feature-importance-item">
+                        <span class="feature-name">{{ feature|capitalize }}</span>
+                        <span class="feature-value">{{ '%.3f'|format(value) }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Diameter (min - max meters)</th>
+                    <th>Hazardous?</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for date, asteroids in data.near_earth_objects.items() %}
+                    {% for asteroid in asteroids %}
+                        {% set distance = asteroid.close_approach_data[0].miss_distance.kilometers | float %}
+                        {% set diameter = asteroid.estimated_diameter.meters.estimated_diameter_max | float %}
+                        {% if asteroid.is_potentially_hazardous_asteroid %}
+                            {# Risk formula: closer and larger = higher risk, capped at 99% #}
+                            {% set base_risk = (diameter * 1000000 / distance) * 2 %}
+                            {% set risk_percent = base_risk | round(0, 'floor') %}
+                            {% if risk_percent > 99 %}{% set risk_percent = 99 %}{% endif %}
+                            {% if risk_percent < 10 %}{% set risk_percent = 10 %}{% endif %}
+                            {% set risk = '🔴 High Risk (' ~ risk_percent ~ '%)' %}
+                        {% else %}
+                            {# Non-hazardous: much lower risk, capped at 10% #}
+                            {% set base_risk = (diameter * 100000 / distance) %}
+                            {% set risk_percent = base_risk | round(0, 'floor') %}
+                            {% if risk_percent > 10 %}{% set risk_percent = 10 %}{% endif %}
+                            {% if risk_percent < 1 %}{% set risk_percent = 1 %}{% endif %}
+                            {% set risk = '🟢 Low Risk (' ~ risk_percent ~ '%)' %}
+                        {% endif %}
+                        <tr>
+                            <td>{{ asteroid.name }}</td>
+                            <td>{{ date }}</td>
+                            <td>{{ asteroid.estimated_diameter.meters.estimated_diameter_min | round(1) }} - {{ asteroid.estimated_diameter.meters.estimated_diameter_max | round(1) }}</td>
+                            <td style="font-weight: 600; color:
+                                {% if risk.startswith('🔴') %}red
+                                {% elif risk.startswith('🟠') %}orange
+                                {% else %}green{% endif %};">
+                                {{ risk }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('sizeChart').getContext('2d');
+        const asteroidData = {
+            labels: [
+                {% for date, asteroids in data.near_earth_objects.items() %}
+                    {% for asteroid in asteroids %}
+                        '{{ asteroid.name }}',
+                    {% endfor %}
+                {% endfor %}
+            ],
+            datasets: [{
+                label: 'Max Estimated Diameter (meters)',
+                data: [
+                    {% for date, asteroids in data.near_earth_objects.items() %}
+                        {% for asteroid in asteroids %}
+                            {{ asteroid.estimated_diameter.meters.estimated_diameter_max | round(1) }},
+                        {% endfor %}
+                    {% endfor %}
+                ],
+                backgroundColor: 'rgba(100, 149, 237, 0.6)'
+            }]
+        };
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: asteroidData,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: true },
+                    title: { display: true, text: 'Diameter (m)' }
+                }
+            }
+        });
+
+        // Scatter plot: Diameter vs Distance
+        const scatterCtx = document.getElementById('scatterChart').getContext('2d');
+        const scatterData = {
+            datasets: [{
+                label: 'Diameter vs Approach Distance',
+                data: [
+                    {% for date, asteroids in data.near_earth_objects.items() %}
+                        {% for asteroid in asteroids %}
+                            {
+                                x: {{ asteroid.estimated_diameter.meters.estimated_diameter_max | round(2) }},
+                                y: {{ asteroid.close_approach_data[0].miss_distance.kilometers | float | round(2) }}
+                            },
+                        {% endfor %}
+                    {% endfor %}
+                ],
+                backgroundColor: 'rgba(255, 99, 132, 0.7)'
+            }]
+        };
+        new Chart(scatterCtx, {
+            type: 'scatter',
+            data: scatterData,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false },
+                    title: { display: true, text: 'Diameter vs Approach Distance (km)' }
+                },
+                scales: {
+                    x: {
+                        title: { display: true, text: 'Diameter (meters)' }
+                    },
+                    y: {
+                        title: { display: true, text: 'Approach Distance (km)' }
+                    }
+                }
+            }
+        });
+
+        // Show modal on first load, hide when user clicks close
+        document.addEventListener('DOMContentLoaded', function() {
+            var modal = document.getElementById('welcomeModal');
+            var closeBtn = document.getElementById('closeModal');
+            closeBtn.onclick = function() {
+                modal.style.display = "none";
+            };
+            // Optional: close modal when clicking outside content
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            };
+        });
+    </script>
+</body>
+</html>
+

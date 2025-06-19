@@ -3,293 +3,744 @@
 <head>
     <meta charset="UTF-8">
     <title>NASA NEO Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-    <!-- About This Dashboard Collapsible Section -->
-    <div class="about-collapsible">
-        <input type="checkbox" id="about-toggle" checked hidden>
-        <label for="about-toggle" class="about-header">
-            <span>About This Dashboard</span>
-            <span class="about-arrow">&#9660;</span>
-        </label>
-        <div class="about-content">
-            <h2>Welcome to the NASA NEO Dashboard!</h2>
-            <p>
-                This dashboard visualizes and analyzes Near-Earth Object (asteroid) data from NASA.<br><br>
-                <strong>Features:</strong>
-                <ul>
-                    <li>View real-time asteroid data fetched from NASA's API</li>
-                    <li>See risk scores and hazard predictions for each asteroid</li>
-                    <li>Explore feature importances used by the machine learning model</li>
-                    <li>Download a PDF report of your predictions</li>
-                    <li>Retrain the model with the latest data</li>
+    <!-- Main Dashboard Accordion -->
+    <div class="accordion" id="dashboardAccordion">
+        
+        <!-- SECTION 1: Dashboard Overview -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="overviewHeading">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#overviewCollapse" aria-expanded="true" aria-controls="overviewCollapse" style="background: #101c2b; color: #7ecbff; font-size: 1.5em; font-weight: 700;">
+                    Dashboard Overview
+                </button>
+            </h2>
+            <div id="overviewCollapse" class="accordion-collapse collapse show" aria-labelledby="overviewHeading" data-bs-parent="#dashboardAccordion">
+                <div class="accordion-body" style="background: #101c2b;">
+                    <div class="section-description" style="background: rgba(16,28,43,0.85); border-radius: 12px; padding: 1.5em 2em; margin-bottom: 2em; border-left: 4px solid #00eaff;">
+                        <p>This comprehensive overview presents the NASA NEO Dashboard's capabilities, data sources, and machine learning models for asteroid risk assessment. Understanding the dashboard's scope helps you navigate effectively and interpret the scientific analysis of near-Earth object threats. Read through each section to understand the dashboard's features, then expand other sections to explore specific tools and visualizations for detailed analysis of asteroid detection and classification systems.</p>
+                    </div>
+                    <h2>NASA Near-Earth Object Risk Assessment Dashboard</h2>
+                    <p>
+                        <strong>Mission Overview:</strong><br>
+                        This advanced dashboard provides real-time monitoring and predictive analysis of Near-Earth Objects (NEOs) using NASA's official asteroid tracking data. Our machine learning models analyze multiple asteroid characteristics to assess potential hazard risks, helping researchers and space enthusiasts understand asteroid behavior patterns and planetary defense implications.
+                        <br><br>
+                        
+                        <strong>Data Sources & Real-Time Updates:</strong>
+                        <ul>
+                            <li><strong>NASA NeoWs API:</strong> Live asteroid detection data updated daily from NASA's Center for Near Earth Object Studies (CNEOS)</li>
+                            <li><strong>Coverage Period:</strong> Tracks asteroids within 7.5 million kilometers of Earth's orbit</li>
+                            <li><strong>Data Refresh:</strong> Automatic daily updates at 09:00 UTC with latest discoveries and orbital calculations</li>
+                            <li><strong>Historical Context:</strong> Analyzes patterns from thousands of previously catalogued asteroids</li>
                 </ul>
-                <strong>How to use:</strong>
-                <ul>
-                    <li>Browse the dashboard for up-to-date asteroid information</li>
-                    <li>Check the "Risk Score" column for color-coded risk levels</li>
-                    <li>Click "Retrain Model" to update predictions with new data</li>
-                    <li>Click "Download Report" to save a summary of your results</li>
+                        
+                        <strong>Machine Learning Models & Predictions:</strong>
+                        <ul>
+                            <li><strong>7 Advanced Algorithms:</strong> Random Forest, Decision Tree, Logistic Regression, K-Nearest Neighbors, Support Vector Machine, XGBoost, and custom NASA-style classifier</li>
+                            <li><strong>Risk Assessment:</strong> Binary classification (Safe/Hazardous) based on size, velocity, and proximity parameters</li>
+                            <li><strong>Feature Analysis:</strong> Evaluates 8 key parameters including absolute magnitude, diameter, velocity, and miss distance</li>
+                            <li><strong>Confidence Scoring:</strong> Probabilistic confidence levels for each prediction to assess model certainty</li>
+                            <li><strong>Model Comparison:</strong> Side-by-side performance metrics to evaluate different algorithmic approaches</li>
                 </ul>
-                <em>All data and predictions are for educational and demonstration purposes only.</em>
+                        
+                        <strong>Interactive Visualizations & Analytics:</strong>
+                        <ul>
+                            <li><strong>PCA Projections:</strong> Interactive 2D scatter plots showing asteroid clustering in reduced feature space</li>
+                            <li><strong>Feature Importance Charts:</strong> Visual breakdown of which asteroid characteristics most influence hazard predictions</li>
+                            <li><strong>Distribution Analysis:</strong> Real-time charts showing hazardous vs. safe asteroid ratios for each model</li>
+                            <li><strong>Correlation Heatmaps:</strong> Statistical relationships between different asteroid parameters</li>
+                            <li><strong>Exploratory Data Analysis:</strong> Comprehensive statistical visualizations of asteroid size and velocity distributions</li>
+                        </ul>
+                        
+                        <strong>Navigation Guide:</strong>
+                        <ul>
+                            <li><strong>Dashboard Overview:</strong> Current section - provides comprehensive system introduction and status</li>
+                            <li><strong>Model Evaluation & Predictions:</strong> Select different ML models, view confusion matrices, analyze feature importance, and explore prediction tables</li>
+                            <li><strong>Predict Asteroid Hazard:</strong> Manual input tool for testing custom asteroid parameters against trained models</li>
+                            <li><strong>Additional Charts & EDA:</strong> Deep-dive statistical analysis including correlation studies and distribution plots</li>
+                        </ul>
+                        
+                        <strong>Key Performance Indicators:</strong>
+                        <ul>
+                            <li><strong>Model Accuracy:</strong> Current best-performing model achieves >95% classification accuracy</li>
+                            <li><strong>Data Freshness:</strong> Latest update timestamp displayed for transparency</li>
+                            <li><strong>Coverage Statistics:</strong> Total asteroids monitored this week with hazard breakdown</li>
+                            <li><strong>Processing Status:</strong> Real-time indicators of model training and data pipeline health</li>
+                        </ul>
+                        
+                        <strong>Scientific Context & Planetary Defense:</strong><br>
+                        Near-Earth Objects pose one of the most quantifiable natural disaster risks to our planet. This dashboard contributes to global planetary defense efforts by:
+                        <ul>
+                            <li>Demonstrating automated threat assessment methodologies</li>
+                            <li>Providing educational insights into asteroid detection and classification</li>
+                            <li>Supporting research into machine learning applications for space situational awareness</li>
+                            <li>Offering transparent, reproducible analysis of publicly available NASA data</li>
+                </ul>
+                        
+                        <strong>Usage Recommendations:</strong>
+                        <ul>
+                            <li><strong>Researchers:</strong> Use model comparison features to understand different algorithmic approaches to asteroid classification</li>
+                            <li><strong>Educators:</strong> Leverage interactive visualizations to demonstrate machine learning concepts and space science</li>
+                            <li><strong>Students:</strong> Explore feature importance and correlation analysis to understand what makes asteroids potentially hazardous</li>
+                            <li><strong>Space Enthusiasts:</strong> Monitor real-time asteroid discoveries and their predicted risk levels</li>
+                </ul>
+                        
+                        <em><strong>Important Disclaimer:</strong> This dashboard is designed for educational, research, and demonstration purposes. All predictions are based on machine learning models trained on historical data and should not be used for actual planetary defense decision-making. Official asteroid threat assessments are conducted by NASA's Planetary Defense Coordination Office and ESA's Space Situational Awareness program.</em>
             </p>
         </div>
     </div>
-    <!-- End About Section -->
-    <!-- EDA Collapsible Section -->
-    <div class="eda-collapsible">
-        <input type="checkbox" id="eda-toggle" checked hidden>
-        <label for="eda-toggle" class="eda-header">
-            <span>Exploratory Data Analysis (EDA)</span>
-            <span class="eda-arrow">&#9660;</span>
-        </label>
-        <div class="eda-content">
-            <p style="font-size:1.2em; color:#eaf6ff; margin-bottom:2em;">
-                This section gives a quick summary of the dataset used to train the model, including distributions and trends. EDA helps us understand the data, spot patterns, and identify relationships between features and the target variable.
-            </p>
-            <div class="eda-chart-block">
-                <div class="eda-chart-title">Hazardous vs Non-Hazardous Asteroids</div>
-                <img src="{{ url_for('static', filename='eda_target_hist.png') }}" alt="Hazardous vs Non-Hazardous Histogram" class="eda-img">
+        </div>
+        <!-- SECTION 2: Model Evaluation & Predictions -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="modelEvalHeading">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#modelEvalCollapse" aria-expanded="false" aria-controls="modelEvalCollapse" style="background: #101c2b; color: #7ecbff; font-size: 1.5em; font-weight: 700;">
+                    Model Evaluation & Predictions
+                </button>
+            </h2>
+            <div id="modelEvalCollapse" class="accordion-collapse collapse" aria-labelledby="modelEvalHeading" data-bs-parent="#dashboardAccordion">
+                <div class="accordion-body" style="background: #101c2b;">
+                    <div class="section-description" style="background: rgba(16,28,43,0.85); border-radius: 12px; padding: 1.5em 2em; margin-bottom: 2em; border-left: 4px solid #00eaff;">
+                        <p><strong>What this is:</strong> This section lets you select a machine learning model and see how well it performs in classifying asteroids as hazardous or non-hazardous.</p>
+                        <p><strong>Why it matters:</strong> Different models make predictions based on the same features but may vary in accuracy, precision, and risk assessment approaches, helping you understand algorithmic trade-offs.</p>
+                        <p><strong>How to use it:</strong> Use the dropdown to select a model and explore its confusion matrix, feature importance charts, PCA projections, and real-time predictions on current asteroid data.</p>
+                    </div>
+                    <!-- Model Dropdown -->
+                    <div class="model-dropdown-row" style="margin-bottom: 2em;">
+                        <label for="modelSelect" class="form-label text-light model-dropdown-label">Select Model:</label>
+                        <select class="form-select model-dropdown-large" id="modelSelect">
+                            <option value="" selected disabled>Select a model...</option>
+                            <option value="rf">Random Forest</option>
+                            <option value="dt">Decision Tree</option>
+                            <option value="lr">Logistic Regression</option>
+                            <option value="knn">K-Nearest Neighbors</option>
+                            <option value="svm">Support Vector Machine</option>
+                            <option value="xgb">XGBoost</option>
+                            <option value="myclf">My Hazard Classifier – NASA Style</option>
+                        </select>
+                        <button id="toggleComparisonBtn" class="btn model-compare-toggle">Compare All Models Side-by-Side</button>
+                    </div>
+                    
+                    <!-- Model Explanation (dynamic and more visible) -->
+                    <div id="modelExplanationContainer" class="mt-3 d-none" style="text-align: center; margin-bottom: 2em;">
+                        <button class="btn btn-info px-4 py-2" id="modelExplanationBtn" onclick="document.getElementById('modelExplanation').classList.toggle('d-none')" style="font-size: 1.1em; font-weight: 600; border-radius: 10px; background: linear-gradient(90deg, #2563eb 60%, #0ff1ff 100%); border: none; color: white; min-width: 280px;">
+                            How does this model work?
+                        </button>
+                        <div id="modelExplanation" class="d-none mt-3 model-explanation-text" style="background: rgba(16,28,43,0.9); border-radius: 12px; padding: 1.5em 2em; border-left: 4px solid #00eaff; margin: 1em auto; line-height: 1.6; font-size: 1.1em; color: #e0e0e0; max-width: 800px; text-align: left; transition: opacity 0.3s ease-in-out; opacity: 1;">
+                            <!-- Model explanation text will go here -->
+                        </div>
+                    </div>
+                    
+                    <!-- Main Content Area (hidden by default) -->
+                    <div id="model-sections" style="display: none;">
+                    
+                    <!-- Individual Model View -->
+                    <div id="individualModelView">
+                        <!-- Confusion Matrix Section Title & Info Toggle -->
+                        <h3 class="chart-title" style="margin-bottom: 1em; margin-top: 2em;">Model Performance Matrix</h3>
+                        <div class="chart-info-toggle">
+                            <button class="btn btn-info chart-info-btn" onclick="toggleChartInfo(this)">
+                                <span class="toggle-icon">▶️</span> What is Confusion Matrix?
+                            </button>
+                            <div class="chart-info-content d-none">
+                                <div class="chart-explanation">
+                                    <h4>📊 What is this?</h4>
+                                    <p>The confusion matrix is a table that shows how well our machine learning model classifies asteroids into "Safe" or "Hazardous" categories. It compares the model's predictions against the actual known classifications.</p>
+                                    
+                                    <h4>📖 How to read it:</h4>
+                                    <ul>
+                                        <li><strong>Rows:</strong> Actual asteroid class (what the asteroid really is)</li>
+                                        <li><strong>Columns:</strong> Model's predicted class (what the model thinks it is)</li>
+                                        <li><strong>Diagonal cells (top-left to bottom-right):</strong> Correct predictions</li>
+                                        <li><strong>Off-diagonal cells:</strong> Incorrect predictions (errors)</li>
+                                        <li><strong>Numbers:</strong> Count of asteroids in each category</li>
+                                    </ul>
+                                    
+                                    <h4>🔍 Why it matters:</h4>
+                                    <p>This matrix helps us understand not just how accurate our model is, but what types of errors it makes. For asteroid hazard detection, it's crucial to minimize false negatives (missing actual hazardous asteroids) as these could pose real threats to Earth.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Confusion Matrix & Metrics -->
+                        <div id="singleModelSection">
+                            <div id="rf" class="model-section model-eval-block">
+                                {{ rf_confusion_html | safe }}
+                                {{ rf_metrics_html | safe }}
+                            </div>
+                            <div id="dt" class="model-section model-eval-block" style="display:none;">
+                                {{ dt_confusion_html | safe }}
+                                {{ dt_metrics_html | safe }}
+                            </div>
+                            <div id="lr" class="model-section model-eval-block" style="display:none;">
+                                {{ lr_confusion_html | safe }}
+                                {{ lr_metrics_html | safe }}
+                            </div>
+                            <div id="knn" class="model-section model-eval-block" style="display:none;">
+                                {{ knn_confusion_html | safe }}
+                                {{ knn_metrics_html | safe }}
+                            </div>
+                            <div id="svm" class="model-section model-eval-block" style="display:none;">
+                                {{ svm_confusion_html | safe }}
+                                {{ svm_metrics_html | safe }}
+                            </div>
+                            <div id="xgb" class="model-section model-eval-block" style="display:none;">
+                                {{ xgb_confusion_html | safe }}
+                                {{ xgb_metrics_html | safe }}
+                            </div>
+                            <div id="myclf" class="model-section model-eval-block" style="display:none;">
+                                {{ myclf_confusion_html | safe }}
+                                {{ myclf_metrics_html | safe }}
+                            </div>
+                        </div>
+                    
+                    <!-- Feature Importance Section Title & Info Toggle -->
+                    <h3 class="chart-title" style="margin-bottom: 1em; margin-top: 2em;">Feature Influence Analysis</h3>
+                    <div class="chart-info-toggle">
+                        <button class="btn btn-info chart-info-btn" onclick="toggleChartInfo(this)">
+                            <span class="toggle-icon">▶️</span> What is Feature Importance?
+                        </button>
+                        <div class="chart-info-content d-none">
+                            <div class="chart-explanation">
+                                <h4>📊 What is this?</h4>
+                                <p>Feature importance shows which asteroid characteristics have the strongest influence on the model's hazard predictions. It ranks features from most influential (longest bars) to least influential (shortest bars).</p>
+                                
+                                <h4>📖 How to read it:</h4>
+                                <ul>
+                                    <li><strong>Longer bars:</strong> Features that strongly influence predictions</li>
+                                    <li><strong>Shorter bars:</strong> Features with minimal impact on decisions</li>
+                                    <li><strong>Top 3 features:</strong> Highlighted in gold as the most critical factors</li>
+                                    <li><strong>Numbers on bars:</strong> Exact importance score (0.0 to 1.0 scale)</li>
+                                </ul>
+                                
+                                <h4>🔍 Why it matters:</h4>
+                                <p>Understanding feature importance helps scientists and researchers identify which asteroid properties are most critical for hazard assessment. This insight guides data collection priorities and helps validate our scientific understanding of what makes an asteroid potentially dangerous.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Feature Importance Chart & Table -->
+                    <div class="chart-section" id="featureImportanceSection">
+                        <img id="featureImportanceImg" src="{{ url_for('static', filename=feature_importance_img) }}" alt="Feature Importance Chart">
+                        <div class="feature-importance-desc" id="featureImportanceDesc">
+                            This chart shows all features considered by the model. The top 3 features were selected because they contribute the most to prediction accuracy, as shown by their higher importance scores.
+                        </div>
+                    </div>
+                    
+                    <div class="feature-importance-list" id="featureImportanceList">
+                        <div class="feature-importance-title">Feature Importances</div>
+                        <div class="feature-importance-items" id="featureImportanceItems">
+                            <!-- JS will populate this -->
+                        </div>
+                    </div>
+                    <!-- Explanation for KNN -->
+                    <div class="feature-importance-list" id="knnExplanation" style="display: none;">
+                        <div class="feature-importance-title">Feature Importance Not Available</div>
+                        <div class="feature-importance-desc" style="margin-top: 1em;">
+                            <strong>K-Nearest Neighbors (KNN)</strong> is a non-parametric, instance-based algorithm that does not learn weights or coefficients for features during training. 
+                            <br><br>
+                            Instead of creating a model with feature importances, KNN makes predictions based on the closest data points in the feature space. It stores all training data and classifies new samples by finding the 'k' nearest neighbors and taking a majority vote.
+                            <br><br>
+                            Since KNN doesn't build an explicit model with feature weights, it cannot provide intrinsic feature importances. For interpretable feature importance analysis, consider using tree-based models like Random Forest or Decision Trees.
+                        </div>
+                    </div>
+                    
+                    <!-- Explanation for SVM -->
+                    <div class="feature-importance-list" id="svmExplanation" style="display: none;">
+                        <div class="feature-importance-title">Feature Importance Not Available</div>
+                        <div class="feature-importance-desc" style="margin-top: 1em;">
+                            <strong>Support Vector Machines (SVM)</strong> do not provide intrinsic feature importances because they rely on boundary margins, not interpretable weights.
+                            <br><br>
+                            SVMs find the optimal hyperplane that separates classes by maximizing the margin between support vectors. While SVMs do have coefficients, these are not directly interpretable as feature importances since they depend on the kernel transformation and the specific support vectors chosen.
+                            <br><br>
+                            The decision boundary in SVM is determined by support vectors rather than individual feature contributions, making direct feature importance extraction complex and often misleading.
+                        </div>
+                    </div>
+                    
+                    <!-- Hazardous vs Non-Hazardous Chart Section Title & Info Toggle -->
+                    <h3 class="chart-title" style="margin-bottom: 1em; margin-top: 2em;">Weekly Hazard Classification Summary</h3>
+                    <div class="chart-info-toggle">
+                        <button class="btn btn-info chart-info-btn" onclick="toggleChartInfo(this)">
+                            <span class="toggle-icon">▶️</span> What is Hazardous vs Non-Hazardous Chart?
+                        </button>
+                        <div class="chart-info-content d-none">
+                            <div class="chart-explanation">
+                                <h4>📊 What is this?</h4>
+                                <p>This bar chart displays the total count of asteroids that the selected model classified as "Safe" or "Hazardous" based on this week's real NASA Near-Earth Object data.</p>
+                                
+                                <h4>📖 How to read it:</h4>
+                                <ul>
+                                    <li><strong>Cyan/Blue bars:</strong> Number of asteroids classified as Safe</li>
+                                    <li><strong>Red bars:</strong> Number of asteroids classified as Hazardous</li>
+                                    <li><strong>Height of bars:</strong> Actual count of asteroids in each category</li>
+                                    <li><strong>Numbers above bars:</strong> Exact count values</li>
+                                </ul>
+                                
+                                <h4>🔍 Why it matters:</h4>
+                                <p>This chart gives you a quick overview of the current threat level as assessed by your chosen model. It helps you understand the model's overall prediction patterns and provides context for weekly space situational awareness. Different models may classify the same asteroids differently, highlighting the importance of model selection.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-section" style="margin-top:2em;">
+                        <img id="hazardousDistImg" src="{{ url_for('static', filename='hazardous_distribution_rf.png') }}" alt="Hazardous vs Non-Hazardous Chart" class="eda-img">
+                        <div class="feature-importance-desc">This chart shows the number of asteroids predicted as Safe or Hazardous by the selected model for this week.</div>
+                    </div>
+
+                    <!-- PCA Projection Chart Section Title & Info Toggle -->
+                    <h3 class="chart-title" style="margin-bottom: 1em; margin-top: 2em;">Original vs PCA-Reduced Feature Space</h3>
+                    <div class="chart-info-toggle">
+                        <button class="btn btn-info chart-info-btn" onclick="toggleChartInfo(this)">
+                            <span class="toggle-icon">▶️</span> What is PCA Projection?
+                        </button>
+                        <div class="chart-info-content d-none">
+                            <div class="chart-explanation">
+                                <h4>📊 What is this?</h4>
+                                <p>PCA (Principal Component Analysis) is a data visualization technique that reduces complex, multi-dimensional asteroid data into a 2D space that humans can easily understand. This interactive chart shows two views of the same data.</p>
+                                
+                                <h4>📖 How to read it:</h4>
+                                <ul>
+                                    <li><strong>Left plot:</strong> Original feature space using the first two features</li>
+                                    <li><strong>Right plot:</strong> PCA-reduced space showing the two most important data dimensions</li>
+                                    <li><strong>Blue dots:</strong> Asteroids predicted as Safe</li>
+                                    <li><strong>Red dots:</strong> Asteroids predicted as Hazardous</li>
+                                    <li><strong>Clusters:</strong> Groups of similar asteroids based on their characteristics</li>
+                                    <li><strong>Interactive:</strong> You can zoom and pan to explore the data patterns</li>
+                                </ul>
+                                
+                                <h4>🔍 Why it matters:</h4>
+                                <p>PCA helps us visualize how well the model separates hazardous from safe asteroids. Clear separation between red and blue clusters indicates good model performance. This visualization also reveals patterns in the data that might not be obvious when looking at raw numbers, helping scientists understand the underlying structure of asteroid characteristics.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-section" style="margin-top: 40px;">
+                        <div id="pcaChart" style="width:100%;height:400px;"></div>
+                        <button id="resetPCAZoom" class="btn btn-secondary" style="margin: 10px auto 0 auto; display: block; background: #223a5e; color: #fff; border: none;">Reset Zoom</button>
+                        <div class="feature-importance-desc">This interactive chart shows the original feature space and PCA projection for the selected model. Each point is colored by the model's predicted hazard label.</div>
+                    </div>
+                    
+                    <!-- Model-Specific Correlation Heatmap Section -->
+                    <div style="padding: 2em 0; margin-top: 3em;">
+                        <h3 class="text-light mt-5 mb-3 border-bottom pb-2">Feature Correlation Analysis</h3>
+                        
+                        <div class="chart-info-toggle text-center mb-4">
+                            <button class="btn btn-info btn-sm px-4 py-2 fw-bold" onclick="toggleChartInfo('correlation-info')">
+                                ▶️ What is Feature Correlation Analysis?
+                            </button>
+                        </div>
+                        
+                        <div id="correlation-info" class="chart-info-box d-none">
+                            <div class="card p-4 shadow-sm mx-auto" style="max-width: 720px;">
+                                <h4>📊 What is this?</h4>
+                                <p>This model-specific correlation heatmap shows how strongly different asteroid features relate to each other within the current dataset used to train the selected model. It focuses on the top features most relevant to this particular model's predictions.</p>
+                                
+                                <h4>📖 How to read it:</h4>
+                                <ul>
+                                    <li><strong>Grid layout:</strong> Each cell shows correlation between two features</li>
+                                    <li><strong>Color scale:</strong> Blue = negative correlation, White = no correlation, Red = positive correlation</li>
+                                    <li><strong>Values:</strong> Range from -1.0 (perfect negative) to +1.0 (perfect positive correlation)</li>
+                                    <li><strong>Diagonal:</strong> Always 1.0 since each feature correlates perfectly with itself</li>
+                                    <li><strong>Model-specific:</strong> Shows only the features most important to the current model</li>
+                                </ul>
+                                
+                                <h4>🔍 Why it matters:</h4>
+                                <p>Understanding how features correlate helps explain model behavior and reveals physical relationships between asteroid properties. Strong correlations between important features can indicate redundancy or underlying physics. For example, asteroid diameter typically correlates with mass, while approach distance might inversely correlate with gravitational influence. This analysis helps validate model decisions and scientific understanding.</p>
+                    </div>
+                        </div>
+                        
+                        <h5 id="correlationModelTitle" class="text-info mt-3 mb-4 text-center">Top Feature Correlations for Random Forest</h5>
+                        
+                        <div class="chart-section px-4" style="margin-top:2em;">
+                            <div id="correlationChart" style="width:100%;height:500px;"></div>
+                            <div class="feature-importance-desc text-center" id="correlationDesc">Select a model to view feature correlations based on real weekly asteroid data and model-specific feature importance rankings.</div>
+                    </div>
+                    </div>
+                    
+                        <!-- Predictions Table Section Title & Info Toggle -->
+                        <h3 class="chart-title" style="margin-bottom: 1em; margin-top: 2em;">All Near-Earth Asteroids Detected This Week</h3>
+                        <div class="chart-info-toggle">
+                            <button class="btn btn-info chart-info-btn" onclick="toggleChartInfo(this)">
+                                <span class="toggle-icon">▶️</span> What is Weekly Predictions Table?
+                            </button>
+                            <div class="chart-info-content d-none">
+                                <div class="chart-explanation">
+                                    <h4>📊 What is this?</h4>
+                                    <p>This table displays real Near-Earth Objects (NEOs) detected by NASA this week, along with predictions from your selected machine learning model about whether each asteroid poses a potential hazard to Earth.</p>
+                                    
+                                    <h4>📖 How to read it:</h4>
+                                    <ul>
+                                        <li><strong>Name:</strong> Official asteroid designation from NASA</li>
+                                        <li><strong>Date:</strong> When the asteroid will make its closest approach to Earth</li>
+                                        <li><strong>Diameter:</strong> Estimated size range in meters (min - max)</li>
+                                        <li><strong>Distance:</strong> Closest approach distance in kilometers</li>
+                                        <li><strong>Predicted Hazard:</strong> Model's classification (Safe or Hazardous)</li>
+                                        <li><strong>Confidence:</strong> How certain the model is about its prediction (0.0-1.0)</li>
+                                    </ul>
+                                    
+                                    <h4>🔍 Why it matters:</h4>
+                                    <p>This table provides real-time space situational awareness by combining live NASA data with AI predictions. It helps prioritize which asteroids warrant closer monitoring and demonstrates how different models can vary in their risk assessments of the same objects. Higher confidence scores indicate more reliable predictions.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="model-predictions-table-block" style="margin-top:2.5em;overflow-x:auto;">
+                            <table id="predictionsTable" class="model-section" style="width:100%;background:#101c2b;">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Date</th>
+                                        <th>Diameter (min - max meters)</th>
+                                        <th>Distance (km)</th>
+                                        <th>Predicted Hazard</th>
+                                        <th>Confidence</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="predictionsTableBody">
+                                    <!-- JS will populate this -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- End Individual Model View -->
+                    
+                    <!-- Model Comparison View (hidden by default) -->
+                    <div class="model-comparison-section" id="modelComparisonSection" style="display:none;">
+                        <h2 class="model-comparison-title">Compare All Models Side-by-Side</h2>
+                        <div class="model-comparison-matrices-row">
+                            <div class="model-comparison-matrix-card">
+                                {{ rf_confusion_html | safe }}
+                            </div>
+                            <div class="model-comparison-matrix-card">
+                                {{ dt_confusion_html | safe }}
+                            </div>
+                            <div class="model-comparison-matrix-card">
+                                {{ lr_confusion_html | safe }}
+                            </div>
+                            <div class="model-comparison-matrix-card">
+                                {{ knn_confusion_html | safe }}
+                            </div>
+                            <div class="model-comparison-matrix-card">
+                                {{ svm_confusion_html | safe }}
+                            </div>
+                            <div class="model-comparison-matrix-card">
+                                {{ xgb_confusion_html | safe }}
+                            </div>
+                            <div class="model-comparison-matrix-card">
+                                {{ myclf_confusion_html | safe }}
+                            </div>
+                        </div>
+                        <div class="model-comparison-table-block">
+                            <table class="model-comparison-table">
+                                <thead>
+                                    <tr>
+                                        <th>Model</th>
+                                        <th>Accuracy</th>
+                                        <th>Precision</th>
+                                        <th>Recall</th>
+                                        <th>F1 Score</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Random Forest</td>
+                                        <td>{{ model_metrics['Random Forest']['accuracy'] | round(2) }}</td>
+                                        <td>{{ model_metrics['Random Forest']['precision'] | round(2) }}</td>
+                                        <td>{{ model_metrics['Random Forest']['recall'] | round(2) }}</td>
+                                        <td>{{ model_metrics['Random Forest']['f1'] | round(2) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Decision Tree</td>
+                                        <td>{{ model_metrics['Decision Tree']['accuracy'] | round(2) }}</td>
+                                        <td>{{ model_metrics['Decision Tree']['precision'] | round(2) }}</td>
+                                        <td>{{ model_metrics['Decision Tree']['recall'] | round(2) }}</td>
+                                        <td>{{ model_metrics['Decision Tree']['f1'] | round(2) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Logistic Regression</td>
+                                        <td>{{ model_metrics['Logistic Regression']['accuracy'] | round(2) }}</td>
+                                        <td>{{ model_metrics['Logistic Regression']['precision'] | round(2) }}</td>
+                                        <td>{{ model_metrics['Logistic Regression']['recall'] | round(2) }}</td>
+                                        <td>{{ model_metrics['Logistic Regression']['f1'] | round(2) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>K-Nearest Neighbors</td>
+                                        <td>{{ model_metrics['KNN']['accuracy'] | round(2) }}</td>
+                                        <td>{{ model_metrics['KNN']['precision'] | round(2) }}</td>
+                                        <td>{{ model_metrics['KNN']['recall'] | round(2) }}</td>
+                                        <td>{{ model_metrics['KNN']['f1'] | round(2) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Support Vector Machine</td>
+                                        <td>{{ model_metrics['Support Vector Machine']['accuracy'] | round(2) }}</td>
+                                        <td>{{ model_metrics['Support Vector Machine']['precision'] | round(2) }}</td>
+                                        <td>{{ model_metrics['Support Vector Machine']['recall'] | round(2) }}</td>
+                                        <td>{{ model_metrics['Support Vector Machine']['f1'] | round(2) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>XGBoost</td>
+                                        <td>{{ model_metrics['XGBoost']['accuracy'] | round(2) }}</td>
+                                        <td>{{ model_metrics['XGBoost']['precision'] | round(2) }}</td>
+                                        <td>{{ model_metrics['XGBoost']['recall'] | round(2) }}</td>
+                                        <td>{{ model_metrics['XGBoost']['f1'] | round(2) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>My Hazard Classifier – NASA Style</td>
+                                        <td>{{ model_metrics['My Hazard Classifier – NASA Style']['accuracy'] | round(2) }}</td>
+                                        <td>{{ model_metrics['My Hazard Classifier – NASA Style']['precision'] | round(2) }}</td>
+                                        <td>{{ model_metrics['My Hazard Classifier – NASA Style']['recall'] | round(2) }}</td>
+                                        <td>{{ model_metrics['My Hazard Classifier – NASA Style']['f1'] | round(2) }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <!-- Model Comparison Summary -->
+                        <div class="model-comparison-summary" style="background: rgba(16,28,43,0.95); border-radius: 12px; padding: 2em; margin: 2em auto; max-width: 900px; border-left: 5px solid #00eaff; box-shadow: 0 4px 20px rgba(0,234,255,0.2);">
+                            <h4 style="color: #00eaff; font-size: 1.3em; font-weight: 700; margin: 0 0 1em 0; display: flex; align-items: center;">
+                                📊 Model Comparison Summary
+                            </h4>
+                            <p style="color: #e0e6ed; font-size: 1.1em; line-height: 1.7; margin-bottom: 1.5em;">
+                                <strong style="color: #7ecbff;">Accuracy vs. F1 Trade-offs:</strong> Random Forest and XGBoost achieve the highest accuracy (1.00) with perfect precision and recall, making them ideal for production use. Decision Tree matches their performance but may be more prone to overfitting on new data.
+                            </p>
+                            <p style="color: #e0e6ed; font-size: 1.1em; line-height: 1.7; margin-bottom: 1.5em;">
+                                <strong style="color: #7ecbff;">Interpretability:</strong> Decision Tree offers the highest interpretability with clear decision paths, while Logistic Regression provides interpretable coefficients. Random Forest and XGBoost are more complex but offer feature importance insights.
+                            </p>
+                            <p style="color: #e0e6ed; font-size: 1.1em; line-height: 1.7; margin-bottom: 0;">
+                                <strong style="color: #7ecbff;">Safety-Critical Recommendations:</strong> For asteroid hazard detection, prioritize high recall to minimize false negatives (missing dangerous asteroids). Random Forest and XGBoost excel here, while KNN and SVM show more conservative predictions with fewer hazardous classifications.
+                            </p>
+                        </div>
+                        
+                        <div class="model-comparison-btn-row" style="text-align: center; margin-top: 2em;">
+                            <button id="hideComparisonBtn" class="btn btn-primary" style="font-size: 1.2em; padding: 0.8em 2em; min-width: 200px;">Hide Comparison</button>
+                        </div>
+                    </div>
+                </div>
+                
+                    <!-- Model Controls Section -->
+                    <div class="mt-5" style="text-align: center; padding: 2em 0;">
+                        <h3 class="chart-title" style="margin-bottom: 1.5em;">Model Controls</h3>
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 1.5em;">
+                            <form method="POST" action="/retrain" style="margin: 0;">
+                                <button type="submit" class="btn btn-primary" style="font-size: 1.2em; padding: 0.8em 2em; min-width: 250px;">Retrain Model</button>
+                            </form>
+                            <div style="color: #b6eaff; font-size: 1em; max-width: 400px; text-align: center;">
+                                Fetches latest NEO data and retrains the model
             </div>
-            <div class="eda-chart-block">
-                <div class="eda-chart-title">Distribution of Asteroid Diameters</div>
-                <img src="{{ url_for('static', filename='eda_diameter_hist.png') }}" alt="Diameter Distribution Histogram" class="eda-img">
-            </div>
-            <div class="eda-chart-block">
-                <div class="eda-chart-title">Correlation Heatmap of Features</div>
-                <img src="{{ url_for('static', filename='eda_corr_heatmap.png') }}" alt="Correlation Heatmap" class="eda-img">
+                            <a href="{{ url_for('show_today_predictions') }}" class="btn btn-outline-info mt-3" style="font-size: 1.2em; padding: 0.8em 2em; min-width: 250px;">
+                                View Today's NEO Predictions
+                            </a>
+        </div>
+    </div>
+                    
+                    <!-- End Model Content -->
             </div>
         </div>
     </div>
-    <!-- End EDA Section -->
-    <!-- PCA Projection Section -->
-    <div class="pca-section">
-        <h2 class="chart-title">PCA Projection: Before & After</h2>
-        <div class="pca-img-block">
-            <img src="{{ url_for('static', filename='pca_projection.png') }}" alt="PCA Projection Before and After" class="pca-img">
-        </div>
-        <div class="pca-desc">
-            PCA reduces dimensionality to reveal structure in the data. This helps us see how separable the hazardous and non-hazardous objects are based on the top principal components.
-        </div>
+        
+        <!-- SECTION 3: Predict Asteroid Hazard -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="predictHeading">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#predictCollapse" aria-expanded="false" aria-controls="predictCollapse" style="background: #101c2b; color: #7ecbff; font-size: 1.5em; font-weight: 700;">
+                    Predict Asteroid Hazard
+                </button>
+            </h2>
+            <div id="predictCollapse" class="accordion-collapse collapse" aria-labelledby="predictHeading" data-bs-parent="#dashboardAccordion">
+                <div class="accordion-body" style="background: #101c2b;">
+                    <div class="section-description" style="background: rgba(16,28,43,0.85); border-radius: 12px; padding: 1.5em 2em; margin-bottom: 2em; border-left: 4px solid #00eaff;">
+                        <p><strong>What this is:</strong> A manual input tool that lets you enter custom asteroid parameters and get a hazard prediction from any of the trained machine learning models.</p>
+                        <p><strong>Why it matters:</strong> This allows you to test hypothetical scenarios, understand how different asteroid characteristics influence risk assessment, and experiment with the prediction models.</p>
+                        <p><strong>How to use it:</strong> Select a model, enter diameter (meters), velocity (km/h), and distance (km) values, then click predict to see the hazard classification and confidence score.</p>
     </div>
-    <!-- End PCA Section -->
-    <div class="container">
-        <h2>Predict Asteroid Hazard</h2>
-        <form method="POST" action="/predict">
+        <form id="predictionForm">
             <div style="margin-bottom:1.2em;">
                 <label for="model_choice" style="font-weight:bold; color:#7ecbff; font-size:1.1em;">Choose Prediction Model:</label>
                 <select name="model_choice" id="model_choice" style="margin-left:1em; padding:0.4em 1.2em; border-radius:8px; background:#101c2b; color:#0ff1ff; border:1.5px solid #223a5e; font-size:1.1em;">
                     <option value="Random Forest" {% if selected_model == 'Random Forest' %}selected{% endif %}>Random Forest</option>
                     <option value="Decision Tree" {% if selected_model == 'Decision Tree' %}selected{% endif %}>Decision Tree</option>
                     <option value="Logistic Regression" {% if selected_model == 'Logistic Regression' %}selected{% endif %}>Logistic Regression</option>
+                    <option value="KNN" {% if selected_model == 'KNN' %}selected{% endif %}>K-Nearest Neighbors</option>
+                    <option value="Support Vector Machine" {% if selected_model == 'Support Vector Machine' %}selected{% endif %}>Support Vector Machine</option>
+                    <option value="XGBoost" {% if selected_model == 'XGBoost' %}selected{% endif %}>XGBoost</option>
+                    <option value="My Hazard Classifier – NASA Style" {% if selected_model == 'My Hazard Classifier – NASA Style' %}selected{% endif %}>My Hazard Classifier – NASA Style</option>
                 </select>
             </div>
+            
+            <!-- All 8 numeric features in two columns -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5em; margin-bottom: 1.5em;">
             <div>
-                <label>Diameter (m):</label>
-                <input type="number" step="any" name="diameter" required>
+                    <label>Absolute Magnitude H:</label>
+                    <input type="number" step="any" name="absolute_magnitude_h" required placeholder="e.g., 22.3">
+                </div>
+                <div>
+                    <label>Estimated Diameter Min (m):</label>
+                    <input type="number" step="any" name="estimated_diameter_min" required placeholder="e.g., 45.2">
+            </div>
+            <div>
+                    <label>Estimated Diameter Max (m):</label>
+                    <input type="number" step="any" name="estimated_diameter_max" required placeholder="e.g., 101.8">
             </div>
             <div>
                 <label>Velocity (km/h):</label>
-                <input type="number" step="any" name="velocity" required>
+                    <input type="number" step="any" name="velocity_kph" required placeholder="e.g., 54321.5">
+                </div>
+                <div>
+                    <label>Velocity (km/s):</label>
+                    <input type="number" step="any" name="velocity_kps" required placeholder="e.g., 15.09">
             </div>
             <div>
                 <label>Distance (km):</label>
-                <input type="number" step="any" name="distance" required>
+                    <input type="number" step="any" name="distance_km" required placeholder="e.g., 7234567.8">
             </div>
-            <button type="submit">Predict</button>
+                <div>
+                    <label>Distance (Lunar):</label>
+                    <input type="number" step="any" name="distance_lunar" required placeholder="e.g., 18.8">
+                </div>
+                <div>
+                    <label>Distance (AU):</label>
+                    <input type="number" step="any" name="distance_au" required placeholder="e.g., 0.048">
+                </div>
+            </div>
+            
+            <button type="submit" id="predictBtn">Predict Asteroid Hazard</button>
         </form>
+
+        <!-- Prediction Results Container (hidden by default) -->
+        <div id="predictionResults" style="display: none; margin-top: 1.5em;">
+            <!-- Results will be populated by JavaScript -->
+        </div>
+
+        <!-- Loading indicator -->
+        <div id="loadingIndicator" style="display: none; margin-top: 1.5em; text-align: center;">
+            <div style="color: #00eaff; font-size: 1.2em;">
+                <span style="animation: pulse 1.5s infinite;">🔄</span> Analyzing asteroid data...
+            </div>
+        </div>
 
         {% if prediction is not none %}
         <div class="alert alert-{{ 'danger' if prediction == 'Yes' else 'success' }}">
-            <strong>Prediction:</strong> {{ '🚨 Potentially Hazardous!' if prediction == 'Yes' else '✅ Safe' }}
+                        <strong>Prediction:</strong> {{ 'Potentially Hazardous!' if prediction == 'Yes' else 'Safe' }}
             {% if confidence is not none %}
                 <span style="margin-left: 1em;">Confidence: {{ (confidence * 100) | round(1) }}%</span>
             {% endif %}
         </div>
         <form method="GET" action="/download_report" style="margin-bottom: 1.5em;">
-            <button type="submit" style="background:#059669; margin-top:0.5em;">⬇️ Download Report</button>
+                        <button type="submit" style="background:#059669; margin-top:0.5em;">Download Report</button>
         </form>
         {% endif %}
-
-        <h2 class="chart-title">Near-Earth Asteroids Detected This Week</h2>
-        <div class="chart-section">
-            <canvas id="sizeChart"></canvas>
+                </div>
+            </div>
         </div>
 
+        <!-- SECTION 4: Additional Analysis & Charts -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="chartsHeading">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#chartsCollapse" aria-expanded="false" aria-controls="chartsCollapse" style="background: #101c2b; color: #7ecbff; font-size: 1.5em; font-weight: 700;">
+                    Additional Charts & EDA
+                </button>
+            </h2>
+            <div id="chartsCollapse" class="accordion-collapse collapse" aria-labelledby="chartsHeading" data-bs-parent="#dashboardAccordion">
+                <div class="accordion-body" style="background: #101c2b;">
+                    <div class="section-description" style="background: rgba(16,28,43,0.85); border-radius: 12px; padding: 1.5em 2em; margin-bottom: 2em; border-left: 4px solid #00eaff;">
+                        <p><strong>What this is:</strong> Deep-dive statistical analysis and exploratory data visualizations showing relationships between asteroid characteristics and distribution patterns.</p>
+                        <p><strong>Why it matters:</strong> These charts reveal underlying patterns in asteroid data, correlations between features, and help you understand what makes certain asteroids more likely to be classified as hazardous.</p>
+                        <p><strong>How to use it:</strong> Explore each chart to understand asteroid size distributions, feature correlations, and scatter plot relationships. Hover over interactive elements to see detailed data points.</p>
+                    </div>
+                    <!-- Diameter vs Approach Distance Scatter Plot -->
         <h3 class="chart-title">Diameter vs Approach Distance</h3>
+                    <div class="chart-info-toggle">
+                        <button class="btn btn-info chart-info-btn" onclick="toggleChartInfo(this)">
+                            <span class="toggle-icon">▶️</span> What is Diameter vs Approach Distance?
+                        </button>
+                        <div class="chart-info-content d-none">
+                            <div class="chart-explanation">
+                                <h4>📊 What is this?</h4>
+                                <p>This scatter plot visualizes the relationship between asteroid size (diameter in meters) and how close they come to Earth (approach distance in kilometers) during their closest flyby.</p>
+                                
+                                <h4>📖 How to read it:</h4>
+                                <ul>
+                                    <li><strong>X-axis (horizontal):</strong> Asteroid diameter in meters - larger values mean bigger asteroids</li>
+                                    <li><strong>Y-axis (vertical):</strong> Closest approach distance in kilometers - smaller values mean the asteroid comes closer to Earth</li>
+                                    <li><strong>Each dot:</strong> Represents one asteroid with its specific size and approach distance</li>
+                                    <li><strong>Clustering patterns:</strong> Groups of dots in similar areas indicate common size-distance relationships</li>
+                                    <li><strong>Outliers:</strong> Isolated dots represent unusual combinations (very large asteroids coming very close, etc.)</li>
+                                </ul>
+                                
+                                <h4>🔍 Why it matters:</h4>
+                                <p>This visualization helps identify patterns between asteroid size and proximity to Earth. Larger asteroids that come closer to Earth are typically of greater concern for planetary defense. The plot reveals whether there's a correlation between size and approach distance, helping scientists understand if bigger asteroids tend to have different orbital characteristics than smaller ones.</p>
+                            </div>
+                        </div>
+                    </div>
         <div class="chart-section">
             <canvas id="scatterChart"></canvas>
         </div>
 
-        <!-- Model Evaluation: Confusion Matrix and Metrics (Toggleable) -->
-        <div class="container mt-4">
-            <div class="model-dropdown-row">
-                <label for="modelSelect" class="form-label text-light model-dropdown-label">Select Model:</label>
-                <select class="form-select model-dropdown-large" id="modelSelect">
-                    <option value="rf">Random Forest</option>
-                    <option value="dt">Decision Tree</option>
-                    <option value="lr">Logistic Regression</option>
-                </select>
-                <button id="toggleComparisonBtn" class="btn model-compare-toggle">Compare All Models Side-by-Side</button>
-            </div>
-        </div>
-
-        <!-- Single Model Evaluation Section -->
-        <div id="singleModelSection">
-            <div id="rf" class="model-section model-eval-block">
-                {{ rf_confusion_html | safe }}
-                {{ rf_metrics_html | safe }}
-                <!-- Feature importance chart for RF here -->
-            </div>
-            <div id="dt" class="model-section model-eval-block" style="display:none;">
-                {{ dt_confusion_html | safe }}
-                {{ dt_metrics_html | safe }}
-                <!-- Feature importance chart for DT here -->
-            </div>
-            <div id="lr" class="model-section model-eval-block" style="display:none;">
-                {{ lr_confusion_html | safe }}
-                {{ lr_metrics_html | safe }}
-                <!-- Feature importance chart for LR here -->
-            </div>
-        </div>
-
-        <!-- Model Comparison Section (hidden by default) -->
-        <div class="model-comparison-section" id="modelComparisonSection" style="display:none;">
-            <h2 class="model-comparison-title">Compare All Models Side-by-Side</h2>
-            <div class="model-comparison-matrices-row">
-                <div class="model-comparison-matrix-card">
-                    {{ rf_confusion_html | safe }}
-                </div>
-                <div class="model-comparison-matrix-card">
-                    {{ dt_confusion_html | safe }}
-                </div>
-                <div class="model-comparison-matrix-card">
-                    {{ lr_confusion_html | safe }}
-                </div>
-            </div>
-            <div class="model-comparison-table-block">
-                <table class="model-comparison-table">
-                    <thead>
-                        <tr>
-                            <th>Model</th>
-                            <th>Accuracy</th>
-                            <th>Precision</th>
-                            <th>Recall</th>
-                            <th>F1 Score</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Random Forest</td>
-                            <td>{{ model_metrics['Random Forest']['accuracy'] | round(2) }}</td>
-                            <td>{{ model_metrics['Random Forest']['precision'] | round(2) }}</td>
-                            <td>{{ model_metrics['Random Forest']['recall'] | round(2) }}</td>
-                            <td>{{ model_metrics['Random Forest']['f1'] | round(2) }}</td>
-                        </tr>
-                        <tr>
-                            <td>Decision Tree</td>
-                            <td>{{ model_metrics['Decision Tree']['accuracy'] | round(2) }}</td>
-                            <td>{{ model_metrics['Decision Tree']['precision'] | round(2) }}</td>
-                            <td>{{ model_metrics['Decision Tree']['recall'] | round(2) }}</td>
-                            <td>{{ model_metrics['Decision Tree']['f1'] | round(2) }}</td>
-                        </tr>
-                        <tr>
-                            <td>Logistic Regression</td>
-                            <td>{{ model_metrics['Logistic Regression']['accuracy'] | round(2) }}</td>
-                            <td>{{ model_metrics['Logistic Regression']['precision'] | round(2) }}</td>
-                            <td>{{ model_metrics['Logistic Regression']['recall'] | round(2) }}</td>
-                            <td>{{ model_metrics['Logistic Regression']['f1'] | round(2) }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="model-comparison-desc">
-                While Random Forest is the most accurate in our dataset, Decision Tree and Logistic Regression offer different trade-offs in terms of interpretability and generalization.
-            </div>
-            <div class="model-comparison-btn-row">
-                <button id="hideComparisonBtn" class="btn model-comparison-hide-btn">Hide Comparison</button>
-            </div>
-        </div>
-
-        <h2 class="chart-title">Feature Importance</h2>
-        <div class="chart-section">
-            <img src="{{ url_for('static', filename='feature_importance.png') }}" alt="Feature Importance Chart">
-            <div class="feature-importance-desc">
-                This chart shows all features considered by the model. The top 3 features were selected because they contribute the most to prediction accuracy, as shown by their higher importance scores.
-            </div>
-        </div>
-
-        {% if importances %}
-        <div class="feature-importance-list">
-            <div class="feature-importance-title">Feature Importances</div>
-            <div class="feature-importance-items">
-                {% for feature, value in importances.items() %}
-                    <div class="feature-importance-item">
-                        <span class="feature-name">{{ feature|capitalize }}</span>
-                        <span class="feature-value">{{ '%.3f'|format(value) }}</span>
+                    <!-- Diameter Distribution -->
+                    <h3 class="chart-title">Diameter Distribution</h3>
+                    <div class="chart-info-toggle">
+                        <button class="btn btn-info chart-info-btn" onclick="toggleChartInfo(this)">
+                            <span class="toggle-icon">▶️</span> What is Diameter Distribution?
+                        </button>
+                        <div class="chart-info-content d-none">
+                            <div class="chart-explanation">
+                                <h4>📊 What is this?</h4>
+                                <p>This histogram shows the size distribution of asteroids in our dataset, displaying how many asteroids fall into different diameter ranges measured in meters.</p>
+                                
+                                <h4>📖 How to read it:</h4>
+                                <ul>
+                                    <li><strong>X-axis (horizontal):</strong> Asteroid diameter ranges in meters</li>
+                                    <li><strong>Y-axis (vertical):</strong> Count or frequency - how many asteroids fall in each size range</li>
+                                    <li><strong>Bar heights:</strong> Taller bars indicate more asteroids in that size category</li>
+                                    <li><strong>Distribution shape:</strong> Shows whether most asteroids are small, large, or evenly distributed</li>
+                                    <li><strong>Skewness:</strong> The chart typically shows many small asteroids and fewer large ones</li>
+                                </ul>
+                                
+                                <h4>🔍 Why it matters:</h4>
+                                <p>This distribution reveals the natural size patterns of near-Earth asteroids. Understanding this is crucial because larger asteroids pose greater impact threats, even if they're less common. The histogram helps scientists assess the overall population characteristics and informs risk assessment models by showing how rare or common different asteroid sizes are in Earth's neighborhood.</p>
+                            </div>
+                        </div>
                     </div>
-                {% endfor %}
+                    <div class="chart-section">
+                        <img src="{{ url_for('static', filename='eda_diameter_hist.png') }}" alt="Diameter Distribution Histogram" class="eda-img">
+    </div>
+
+
+                    
+                    <!-- Near-Earth Asteroids Detected This Week Chart -->
+                    <h3 class="chart-title">Near-Earth Asteroids Detected This Week</h3>
+                    <div class="chart-info-toggle">
+                        <button class="btn btn-info chart-info-btn" onclick="toggleChartInfo(this)">
+                            <span class="toggle-icon">▶️</span> What is the Weekly NEO Chart?
+                        </button>
+                        <div class="chart-info-content d-none">
+                            <div class="chart-explanation">
+                                <h4>📊 What is this?</h4>
+                                <p>This bar chart displays the maximum estimated diameter of all near-Earth asteroids (NEOs) detected and tracked during the current week, providing a real-time view of asteroid activity in Earth's vicinity.</p>
+                                
+                                <h4>📖 How to read it:</h4>
+                                <ul>
+                                    <li><strong>X-axis (horizontal):</strong> Individual asteroid names or identifiers</li>
+                                    <li><strong>Y-axis (vertical):</strong> Maximum estimated diameter in meters for each asteroid</li>
+                                    <li><strong>Bar heights:</strong> Taller bars represent larger asteroids</li>
+                                    <li><strong>Real-time data:</strong> This chart updates with fresh NASA data showing current weekly detections</li>
+                                    <li><strong>Color coding:</strong> Consistent blue coloring for easy visual comparison between asteroid sizes</li>
+                                </ul>
+                                
+                                <h4>🔍 Why it matters:</h4>
+                                <p>This weekly snapshot provides situational awareness of asteroid activity near Earth. Unlike model predictions, this shows actual detected objects and their characteristics. It helps track the frequency and size distribution of NEOs in Earth's neighborhood, supporting both scientific research and planetary defense monitoring. The chart reveals patterns in detection rates and helps identify particularly large or noteworthy asteroids approaching during the current time period.</p>
+    </div>
+                        </div>
+                    </div>
+                    <div class="chart-section">
+                        <canvas id="sizeChart"></canvas>
+                    </div>
+                </div>
             </div>
         </div>
-        {% endif %}
-
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Date</th>
-                    <th>Diameter (min - max meters)</th>
-                    <th>Hazardous?</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for date, asteroids in data.near_earth_objects.items() %}
-                    {% for asteroid in asteroids %}
-                        {% set distance = asteroid.close_approach_data[0].miss_distance.kilometers | float %}
-                        {% set diameter = asteroid.estimated_diameter.meters.estimated_diameter_max | float %}
-                        {% if asteroid.is_potentially_hazardous_asteroid %}
-                            {# Risk formula: closer and larger = higher risk, capped at 99% #}
-                            {% set base_risk = (diameter * 1000000 / distance) * 2 %}
-                            {% set risk_percent = base_risk | round(0, 'floor') %}
-                            {% if risk_percent > 99 %}{% set risk_percent = 99 %}{% endif %}
-                            {% if risk_percent < 10 %}{% set risk_percent = 10 %}{% endif %}
-                            {% set risk = '🔴 High Risk (' ~ risk_percent ~ '%)' %}
-                        {% else %}
-                            {# Non-hazardous: much lower risk, capped at 10% #}
-                            {% set base_risk = (diameter * 100000 / distance) %}
-                            {% set risk_percent = base_risk | round(0, 'floor') %}
-                            {% if risk_percent > 10 %}{% set risk_percent = 10 %}{% endif %}
-                            {% if risk_percent < 1 %}{% set risk_percent = 1 %}{% endif %}
-                            {% set risk = '🟢 Low Risk (' ~ risk_percent ~ '%)' %}
-                        {% endif %}
-                        <tr>
-                            <td>{{ asteroid.name }}</td>
-                            <td>{{ date }}</td>
-                            <td>{{ asteroid.estimated_diameter.meters.estimated_diameter_min | round(1) }} - {{ asteroid.estimated_diameter.meters.estimated_diameter_max | round(1) }}</td>
-                            <td style="font-weight: 600; color:
-                                {% if risk.startswith('🔴') %}red
-                                {% elif risk.startswith('🟠') %}orange
-                                {% else %}green{% endif %};">
-                                {{ risk }}
-                            </td>
-                        </tr>
-                    {% endfor %}
-                {% endfor %}
-            </tbody>
-        </table>
     </div>
+    <!-- End Main Dashboard Accordion -->
 
-    <!-- Model Controls Section -->
-    <div class="model-controls-section">
-        <h2>Model Controls</h2>
-        <form method="POST" action="/retrain">
-            <button type="submit">🔁 Retrain Model</button>
-        </form>
-        <div class="model-controls-label">Fetches latest NEO data and retrains the model</div>
-    </div>
+
 
     <script>
         const ctx = document.getElementById('sizeChart').getContext('2d');
@@ -365,43 +816,654 @@
             }
         });
 
-        // Toggle between single model and comparison view
+        // Toggle between individual model view and comparison view
         const modelSelect = document.getElementById("modelSelect");
-        const singleModelSection = document.getElementById("singleModelSection");
+        const individualModelView = document.getElementById("individualModelView");
         const modelComparisonSection = document.getElementById("modelComparisonSection");
         const toggleComparisonBtn = document.getElementById("toggleComparisonBtn");
         const hideComparisonBtn = document.getElementById("hideComparisonBtn");
+        const singleModelSection = document.getElementById("singleModelSection");
         const modelBlocks = {
             rf: document.getElementById("rf"),
             dt: document.getElementById("dt"),
-            lr: document.getElementById("lr")
+            lr: document.getElementById("lr"),
+            knn: document.getElementById("knn"),
+            svm: document.getElementById("svm"),
+            xgb: document.getElementById("xgb"),
+            myclf: document.getElementById("myclf")
         };
 
         function showSingleModel(model) {
             for (const key in modelBlocks) {
                 modelBlocks[key].style.display = key === model ? "block" : "none";
             }
-            singleModelSection.style.display = "block";
+            // Show individual model view and hide comparison view
+            individualModelView.style.display = "block";
             modelComparisonSection.style.display = "none";
         }
 
+        function showComparisonView() {
+            // Hide individual model view and show comparison view
+            individualModelView.style.display = "none";
+            modelComparisonSection.style.display = "block";
+        }
+
         modelSelect.addEventListener("change", function () {
-            showSingleModel(this.value);
+            const selectedModel = this.value;
+            if (selectedModel && selectedModel !== '') {
+                // If comparison is currently shown, switch back to individual model
+                if (modelComparisonSection.style.display === 'block') {
+                    toggleComparisonBtn.textContent = "Compare All Models Side-by-Side";
+                }
+                showSingleModel(selectedModel);
+            }
         });
+
+        // Store the currently selected model for restoration
+        let currentSelectedModel = null;
 
         toggleComparisonBtn.addEventListener("click", function () {
-            singleModelSection.style.display = "none";
-            modelComparisonSection.style.display = "block";
+            if (toggleComparisonBtn.textContent === "Compare All Models Side-by-Side") {
+                // Store current model selection
+                currentSelectedModel = modelSelect.value;
+                
+                // Make sure model-sections is visible
+                document.getElementById('model-sections').style.display = 'block';
+                
+                // Switch to comparison view
+                showComparisonView();
+                
+                // Update button text
+                toggleComparisonBtn.textContent = "Back to Individual Model";
+            } else {
+                // Switch back to individual model view
+                if (currentSelectedModel && currentSelectedModel !== '') {
+                    showSingleModel(currentSelectedModel);
+                    modelSelect.value = currentSelectedModel;
+                } else {
+                    // Hide model sections if no model was selected
+                    document.getElementById('model-sections').style.display = 'none';
+                }
+                
+                // Reset button text
+                toggleComparisonBtn.textContent = "Compare All Models Side-by-Side";
+            }
         });
 
-        hideComparisonBtn.addEventListener("click", function () {
-            modelComparisonSection.style.display = "none";
-            showSingleModel(modelSelect.value);
+        // Keep the hideComparisonBtn listener for the button inside the comparison view
+        if (hideComparisonBtn) {
+            hideComparisonBtn.addEventListener("click", function () {
+                // Switch back to individual model view
+                if (currentSelectedModel && currentSelectedModel !== '') {
+                    showSingleModel(currentSelectedModel);
+                    modelSelect.value = currentSelectedModel;
+                } else {
+                    // Hide model sections if no model was selected
+                    document.getElementById('model-sections').style.display = 'none';
+                }
+                
+                // Reset button text
+                toggleComparisonBtn.textContent = "Compare All Models Side-by-Side";
+            });
+        }
+
+        // On page load, hide all model content until selection is made
+        // showSingleModel(modelSelect.value); // Removed - no default model shown
+        
+        // Model content is hidden by default via CSS display: none
+
+        // Dynamically update feature importance chart based on selected model
+        const modelKeyMap = {
+            'rf': 'feature_importance_rf.png',
+            'dt': 'feature_importance_dt.png',
+            'lr': 'feature_importance_lr.png',
+            'knn': 'feature_importance_knn.png',
+            'svm': 'feature_importance_svm.png',
+            'xgb': 'feature_importance_xgb.png',
+            'myclf': 'feature_importance_myclf.png'
+        };
+        document.getElementById('modelSelect').addEventListener('change', function() {
+            const key = this.value;
+            
+            // Show/hide model content based on selection
+            const modelSections = document.getElementById('model-sections');
+            if (key === '' || !key) {
+                modelSections.style.display = 'none';
+                return;
+            } else {
+                modelSections.style.display = 'block';
+            }
+            
+            // If comparison is currently shown, hide it and show individual model
+            if (modelComparisonSection.style.display === 'block') {
+                toggleComparisonBtn.textContent = "Compare All Models Side-by-Side";
+            }
+            
+            // Show individual model section
+            showSingleModel(key);
+            
+            const img = document.getElementById('featureImportanceImg');
+            if (modelKeyMap[key]) {
+                img.src = '/static/' + modelKeyMap[key];
+            } else {
+                img.src = '/static/feature_importance_rf.png';
+            }
+            // Update hazardous distribution chart
+            const hazImg = document.getElementById('hazardousDistImg');
+            hazImg.src = '/static/hazardous_distribution_' + key + '.png';
+            // Update feature importance visibility and data
+            updateFeatureImportanceVisibility(key);
+            updateFeatureImportanceTable(key);
+            updatePredictionsTable(key);
+            // Update model explanation
+            updateModelExplanation(key);
+            // Update correlation heatmap
+            updateCorrelationChart(key);
         });
 
-        // On page load, show the default model (rf)
-        showSingleModel(modelSelect.value);
+        // Function to update correlation heatmap
+        async function updateCorrelationChart(modelKey) {
+            try {
+                const response = await fetch(`/api/correlation/${modelKey}`);
+                const data = await response.json();
+                
+                if (data.error) {
+                    console.warn('Correlation data error:', data.error);
+                    document.getElementById('correlationDesc').textContent = 'Correlation data not available for this model.';
+                    return;
+                }
+                
+                const { features, matrix, model } = data;
+                
+                // Update the correlation model title
+                const modelNames = {
+                    rf: "Random Forest",
+                    dt: "Decision Tree", 
+                    lr: "Logistic Regression",
+                    knn: "K-Nearest Neighbors",
+                    svm: "Support Vector Machine",
+                    xgb: "XGBoost",
+                    myclf: "My Hazard Classifier – NASA Style"
+                };
+                document.getElementById("correlationModelTitle").innerText = `Top Feature Correlations for ${modelNames[modelKey]}`;
+                
+                // Create heatmap trace
+                const trace = {
+                    z: matrix,
+                    x: features,
+                    y: features,
+                    type: 'heatmap',
+                    colorscale: [
+                        [0, '#2563eb'],      // Blue for negative correlations
+                        [0.5, '#f8f9fa'],   // White for no correlation
+                        [1, '#dc2626']      // Red for positive correlations
+                    ],
+                    zmin: -1,
+                    zmax: 1,
+                    showscale: true,
+                    colorbar: {
+                        title: 'Correlation',
+                        titleside: 'right'
+                    },
+                    hoverongaps: false,
+                    hovertemplate: '%{y} vs %{x}<br>Correlation: %{z:.3f}<extra></extra>'
+                };
+                
+                const layout = {
+                    title: {
+                        text: `Feature Correlations (${model} Model)`,
+                        font: { color: '#7ecbff', size: 16 }
+                    },
+                    xaxis: {
+                        title: 'Features',
+                        tickangle: -45,
+                        color: '#ffffff'
+                    },
+                    yaxis: {
+                        title: 'Features',
+                        color: '#ffffff'
+                    },
+                    plot_bgcolor: '#101c2b',
+                    paper_bgcolor: '#101c2b',
+                    font: { color: '#ffffff' }
+                };
+                
+                Plotly.newPlot('correlationChart', [trace], layout, {responsive: true});
+                
+                // Update description
+                const topFeatures = features.slice(0, 3).join(', ');
+                document.getElementById('correlationDesc').textContent = 
+                    `Showing correlations for top ${features.length} features based on ${model} model importance: ${topFeatures}${features.length > 3 ? ', ...' : ''}.`;
+                
+            } catch (error) {
+                console.error('Failed to update correlation chart:', error);
+                document.getElementById('correlationDesc').textContent = 'Failed to load correlation data.';
+            }
+        }
+
+        // Model explanations (enhanced with more detailed descriptions)
+        const modelExplanations = {
+            rf: "Random Forest is an ensemble learning method that builds multiple decision trees and combines their outputs. Each tree is trained on a random subset of the data and features. This helps reduce overfitting compared to a single decision tree. The final prediction is made by majority voting (classification) or averaging (regression). Random Forest performs well in most classification tasks and provides feature importance metrics by measuring how each feature decreases impurity in the splits. It's robust to noise and handles both numerical and categorical features well.",
+            dt: "Decision Tree is a tree-like model that makes decisions by splitting the data based on feature values. Each internal node represents a test on an attribute, each branch represents the outcome of the test, and each leaf node represents a class prediction. The algorithm uses measures like Gini impurity or entropy to determine the best splits. While easy to interpret and visualize, single decision trees are prone to overfitting, especially with complex datasets. They work well when the decision boundaries are axis-aligned.",
+            lr: "Logistic Regression models the probability of a binary outcome using the logistic (sigmoid) function. It transforms the linear combination of input features through the sigmoid function to produce probabilities between 0 and 1. The model learns coefficients for each feature that indicate their importance and direction of influence. Logistic Regression assumes a linear relationship between features and the log-odds of the outcome. It's simple, fast, and provides interpretable coefficients, making it effective for linearly separable data and when you need to understand feature contributions.",
+            knn: "K-Nearest Neighbors is a non-parametric, instance-based learning algorithm that classifies a sample based on the majority class among its k closest neighbors in the feature space. It doesn't build an explicit model during training but stores all training data. For prediction, it calculates distances (usually Euclidean) to all training points and finds the k nearest ones. The algorithm is simple and effective for non-linear decision boundaries but can be sensitive to the choice of k, distance metric, and feature scaling. It performs well when local patterns are important.",
+            svm: "Support Vector Machine finds the optimal hyperplane that best separates different classes by maximizing the margin between them. It focuses on the data points closest to the decision boundary (support vectors) rather than all training data. SVM can handle non-linear relationships using kernel functions that map data to higher-dimensional spaces. The algorithm is effective in high-dimensional spaces and works well when the number of features is larger than the number of samples. It's memory-efficient but can be slow on large datasets.",
+            xgb: "XGBoost (Extreme Gradient Boosting) is an optimized gradient boosting framework that builds models sequentially, where each new model corrects the errors of the previous ones. It uses decision trees as weak learners and combines them to create a strong predictor. XGBoost includes advanced features like regularization to prevent overfitting, handling of missing values, and parallel processing for efficiency. It's known for achieving high accuracy in machine learning competitions and real-world applications, especially with structured/tabular data.",
+            myclf: "This is a custom hazard classifier designed to mimic NASA's asteroid classification logic using Random Forest as the base algorithm. It uses domain-specific features and thresholds tailored for asteroid hazard assessment. The model combines the robustness of Random Forest with NASA-style risk evaluation criteria, focusing on key parameters like size, velocity, and proximity to Earth. It's specifically tuned for asteroid data patterns and includes custom preprocessing steps that align with space agency practices for planetary defense applications."
+        };
+
+        // Model names for dynamic button text
+        const modelNames = {
+            rf: "Random Forest",
+            dt: "Decision Tree", 
+            lr: "Logistic Regression",
+            knn: "K-Nearest Neighbors",
+            svm: "Support Vector Machine",
+            xgb: "XGBoost",
+            myclf: "My Hazard Classifier – NASA Style"
+        };
+
+        function updateModelExplanation(modelKey) {
+            const explanation = modelExplanations[modelKey];
+            const modelName = modelNames[modelKey];
+            const container = document.getElementById('modelExplanationContainer');
+            const text = document.getElementById('modelExplanation');
+            const button = document.getElementById('modelExplanationBtn');
+            
+            if (explanation && modelKey !== '' && modelKey && modelName) {
+                // Update button text to be model-specific
+                button.textContent = `How does the ${modelName} model work?`;
+                
+                // Update explanation text
+                text.textContent = explanation;
+                
+                // Show the container
+                container.classList.remove('d-none');
+                
+                // Ensure explanation is hidden initially (user can click to reveal)
+                text.classList.add('d-none');
+            } else {
+                container.classList.add('d-none');
+            }
+        }
+
+        function modelSupportsFeatureImportance(modelKey) {
+            const unsupported = ["knn", "svm"];
+            return !unsupported.includes(modelKey);
+        }
+
+        function updateFeatureImportanceVisibility(modelKey) {
+            const featureImportanceSection = document.getElementById('featureImportanceSection');
+            const featureImportanceList = document.getElementById('featureImportanceList');
+            const knnExplanation = document.getElementById('knnExplanation');
+            const svmExplanation = document.getElementById('svmExplanation');
+            
+            if (modelSupportsFeatureImportance(modelKey)) {
+                // Show feature importance chart and table
+                featureImportanceSection.style.display = 'block';
+                featureImportanceList.style.display = 'block';
+                knnExplanation.style.display = 'none';
+                svmExplanation.style.display = 'none';
+            } else {
+                // Hide feature importance chart and table, show appropriate explanation
+                featureImportanceSection.style.display = 'none';
+                featureImportanceList.style.display = 'none';
+                
+                if (modelKey === 'knn') {
+                    knnExplanation.style.display = 'block';
+                    svmExplanation.style.display = 'none';
+                } else if (modelKey === 'svm') {
+                    knnExplanation.style.display = 'none';
+                    svmExplanation.style.display = 'block';
+                } else {
+                    knnExplanation.style.display = 'none';
+                    svmExplanation.style.display = 'none';
+                }
+            }
+        }
+
+        function updateFeatureImportanceTable(modelKey) {
+            if (!modelSupportsFeatureImportance(modelKey)) {
+                // Clear the table for unsupported models
+                const itemsDiv = document.getElementById('featureImportanceItems');
+                itemsDiv.innerHTML = '';
+                return;
+            }
+            
+            fetch(`/api/feature_importance/${modelKey}`)
+                .then(res => res.json())
+                .then(data => {
+                    const itemsDiv = document.getElementById('featureImportanceItems');
+                    itemsDiv.innerHTML = '';
+                    
+                    // Add info line for Logistic Regression
+                    if (modelKey === 'lr') {
+                        const infoLine = document.createElement('div');
+                        infoLine.style.cssText = 'color: #7ecbff; font-size: 0.9em; margin-bottom: 1em; padding: 0.5em; background: rgba(126, 203, 255, 0.1); border-radius: 4px; border-left: 3px solid #7ecbff;';
+                        infoLine.textContent = 'This model uses L1 regularization (LASSO), which automatically selects features by zeroing out coefficients of less important ones.';
+                        itemsDiv.appendChild(infoLine);
+                    }
+                    
+                    // Filter out zero or near-zero coefficients for logistic regression
+                    const filteredEntries = Object.entries(data).filter(([feature, value]) => {
+                        if (modelKey === 'lr') {
+                            return Math.abs(value) > 0.001; // Only show non-zero coefficients
+                        }
+                        return true; // Show all for other models
+                    });
+                    
+                    // Sort by absolute value (descending) for better display
+                    filteredEntries.sort((a, b) => Math.abs(b[1]) - Math.abs(a[1]));
+                    
+                    filteredEntries.forEach(([feature, value]) => {
+                        const item = document.createElement('div');
+                        item.className = 'feature-importance-item';
+                        const displayName = feature.charAt(0).toUpperCase() + feature.slice(1).replace(/_/g, ' ');
+                        item.innerHTML = `<span class="feature-name">${displayName}</span><span class="feature-value">${value.toFixed(3)}</span>`;
+                        itemsDiv.appendChild(item);
+                    });
+                    
+                    // If no features remain after filtering, show a message
+                    if (filteredEntries.length === 0 && modelKey === 'lr') {
+                        const noFeaturesMsg = document.createElement('div');
+                        noFeaturesMsg.style.cssText = 'color: #ffb300; font-style: italic; text-align: center; padding: 1em;';
+                        noFeaturesMsg.textContent = 'All features have been zeroed out by regularization.';
+                        itemsDiv.appendChild(noFeaturesMsg);
+                    }
+                })
+                .catch(err => {
+                    console.warn('Failed to load feature importance data:', err);
+                    const itemsDiv = document.getElementById('featureImportanceItems');
+                    itemsDiv.innerHTML = '';
+                });
+        }
+
+        function updatePredictionsTable(modelKey) {
+            fetch(`/api/daily_predictions/${modelKey}`)
+                .then(res => res.json())
+                .then(data => {
+                    const tbody = document.getElementById('predictionsTableBody');
+                    tbody.innerHTML = '';
+                    data.forEach(row => {
+                        const minDiam = (row.estimated_diameter_min !== undefined && row.estimated_diameter_min !== null) ? Number(row.estimated_diameter_min).toFixed(1) : '';
+                        const maxDiam = (row.estimated_diameter_max !== undefined && row.estimated_diameter_max !== null) ? Number(row.estimated_diameter_max).toFixed(1) : '';
+                        const distKm = (row.distance_km !== undefined && row.distance_km !== null) ? Math.round(Number(row.distance_km)).toLocaleString() : '';
+                        const hazard = row.predicted_hazard_label || '';
+                        const hazardColor = hazard === 'Hazardous' ? 'red' : 'green';
+                        const conf = (row.confidence !== undefined && row.confidence !== null) ? (Number(row.confidence) * 100).toFixed(1) + '%' : '';
+                        const tr = document.createElement('tr');
+                        tr.innerHTML =
+                            '<td>' + (row.name || '') + '</td>' +
+                            '<td>' + (row.date || '') + '</td>' +
+                            '<td>' + minDiam + ' - ' + maxDiam + '</td>' +
+                            '<td>' + distKm + '</td>' +
+                            '<td style="font-weight:600; color:' + hazardColor + ';">' + hazard + '</td>' +
+                            '<td>' + conf + '</td>';
+                        tbody.appendChild(tr);
+                    });
+                });
+        }
+
+        // Chart Info Toggle Function
+        function toggleChartInfo(buttonOrId) {
+            let button, content;
+            
+            if (typeof buttonOrId === 'string') {
+                // If it's a string, it's an ID for the content element
+                content = document.getElementById(buttonOrId);
+                button = content.previousElementSibling.querySelector('button');
+            } else {
+                // If it's an element, it's the button itself
+                button = buttonOrId;
+                content = button.nextElementSibling;
+            }
+            
+            if (!content) return;
+            
+            if (content.classList.contains('d-none')) {
+                // Show the content
+                content.classList.remove('d-none');
+                button.classList.add('expanded');
+                // Update button text for the new style
+                if (button.textContent.includes('▶️')) {
+                    button.textContent = button.textContent.replace('▶️', '🔽');
+                } else {
+                    const icon = button.querySelector('.toggle-icon');
+                    if (icon) icon.textContent = '🔽';
+                }
+            } else {
+                // Hide the content
+                content.classList.add('d-none');
+                button.classList.remove('expanded');
+                // Update button text for the new style
+                if (button.textContent.includes('🔽')) {
+                    button.textContent = button.textContent.replace('🔽', '▶️');
+                } else {
+                    const icon = button.querySelector('.toggle-icon');
+                    if (icon) icon.textContent = '▶️';
+                }
+            }
+        }
     </script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+    async function updatePCAChart(modelKey) {
+      try {
+        const response = await fetch(`/api/pca_projection/${modelKey}`);
+        const data = await response.json();
+        const hazardous = data.filter(d => d.label === "Hazardous");
+        const safe = data.filter(d => d.label === "Safe");
+        // Left: Original feature space
+        const traceSafeOrig = {
+          x: safe.map(d => d.orig_x),
+          y: safe.map(d => d.orig_y),
+          mode: 'markers',
+          type: 'scatter',
+          name: 'Safe',
+          marker: { color: 'cyan' },
+          xaxis: 'x1',
+          yaxis: 'y1',
+          text: safe.map(d => d.name),
+          hovertemplate: 'Name: %{text}<br>Abs Mag: %{x}<br>Diam Max: %{y}<extra></extra>'
+        };
+        const traceHazOrig = {
+          x: hazardous.map(d => d.orig_x),
+          y: hazardous.map(d => d.orig_y),
+          mode: 'markers',
+          type: 'scatter',
+          name: 'Hazardous',
+          marker: { color: 'red' },
+          xaxis: 'x1',
+          yaxis: 'y1',
+          text: hazardous.map(d => d.name),
+          hovertemplate: 'Name: %{text}<br>Abs Mag: %{x}<br>Diam Max: %{y}<extra></extra>'
+        };
+        // Right: PCA-reduced space
+        const traceSafePCA = {
+          x: safe.map(d => d.pc1),
+          y: safe.map(d => d.pc2),
+          mode: 'markers',
+          type: 'scatter',
+          name: 'Safe',
+          marker: { color: 'cyan' },
+          xaxis: 'x2',
+          yaxis: 'y2',
+          text: safe.map(d => d.name),
+          hovertemplate: 'Name: %{text}<br>PC1: %{x}<br>PC2: %{y}<extra></extra>'
+        };
+        const traceHazPCA = {
+          x: hazardous.map(d => d.pc1),
+          y: hazardous.map(d => d.pc2),
+          mode: 'markers',
+          type: 'scatter',
+          name: 'Hazardous',
+          marker: { color: 'red' },
+          xaxis: 'x2',
+          yaxis: 'y2',
+          text: hazardous.map(d => d.name),
+          hovertemplate: 'Name: %{text}<br>PC1: %{x}<br>PC2: %{y}<extra></extra>'
+        };
+        const layout = {
+          grid: {rows: 1, columns: 2, pattern: 'independent'},
+          plot_bgcolor: 'rgba(0,0,0,0)',
+          paper_bgcolor: 'rgba(0,0,0,0)',
+          font: { color: '#ffffff' },
+          showlegend: true,
+          xaxis: {title: 'Absolute Magnitude H', domain: [0, 0.45]},
+          yaxis: {title: 'Diameter Max (m)'},
+          xaxis2: {title: 'PC1', domain: [0.55, 1]},
+          yaxis2: {title: 'PC2'},
+          annotations: [
+            {text: 'Original Feature Space', x: 0.225, y: 1.12, xref: 'paper', yref: 'paper', showarrow: false, font: {size: 16, color: '#fff'}},
+            {text: 'PCA-Reduced Space', x: 0.775, y: 1.12, xref: 'paper', yref: 'paper', showarrow: false, font: {size: 16, color: '#fff'}}
+          ],
+          margin: {t: 60, l: 60, r: 40, b: 60}
+        };
+        Plotly.newPlot('pcaChart', [traceSafeOrig, traceHazOrig, traceSafePCA, traceHazPCA], layout, {responsive: true});
+        // Reset Zoom button
+        document.getElementById('resetPCAZoom').onclick = function() {
+          Plotly.relayout('pcaChart', {
+            'xaxis.autorange': true,
+            'yaxis.autorange': true,
+            'xaxis2.autorange': true,
+            'yaxis2.autorange': true
+          });
+        };
+      } catch (err) {
+        console.error('Failed to load PCA data:', err);
+      }
+    }
+    document.getElementById("modelSelect").addEventListener("change", function () {
+      const selectedModel = this.value;
+      updatePCAChart(selectedModel);
+      updateCorrelationChart(selectedModel);
+    });
+    // Initial load - no chart shown until model is selected
+    // updatePCAChart("rf"); // Removed - no default chart
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AJAX Prediction Script -->
+    <script>
+        document.getElementById('predictionForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent default form submission
+            
+            const form = this;
+            const formData = new FormData(form);
+            const predictBtn = document.getElementById('predictBtn');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const resultsContainer = document.getElementById('predictionResults');
+            
+            // Show loading indicator
+            loadingIndicator.style.display = 'block';
+            resultsContainer.style.display = 'none';
+            predictBtn.disabled = true;
+            predictBtn.textContent = 'Analyzing...';
+            
+            // Smooth scroll to results area
+            loadingIndicator.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            // Send AJAX request
+            fetch('/predict', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Hide loading indicator
+                loadingIndicator.style.display = 'none';
+                
+                // Show results
+                resultsContainer.style.display = 'block';
+                
+                // Create result HTML
+                const isHazardous = data.prediction === 'Yes';
+                const alertClass = isHazardous ? 'alert-danger' : 'alert-success';
+                const predictionText = isHazardous ? 'Potentially Hazardous!' : 'Safe';
+                const confidenceText = data.confidence ? `Confidence: ${(data.confidence * 100).toFixed(1)}%` : '';
+                
+                resultsContainer.innerHTML = `
+                    <div class="alert ${alertClass}" style="border-radius: 12px; border: 2px solid ${isHazardous ? '#ff4c4c' : '#00eaff'}; background: rgba(${isHazardous ? '255,76,76' : '0,234,255'},0.1); animation: fadeInUp 0.5s ease-out;">
+                        <div style="display: flex; align-items: center; gap: 1em;">
+                            <div style="font-size: 2em;">${isHazardous ? '⚠️' : '✅'}</div>
+                            <div>
+                                <strong style="font-size: 1.3em;">Prediction: ${predictionText}</strong>
+                                ${confidenceText ? `<div style="margin-top: 0.5em; font-size: 1.1em;">${confidenceText}</div>` : ''}
+                                <div style="margin-top: 0.8em; font-size: 0.95em; opacity: 0.9;">
+                                    Model used: <strong>${data.model}</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 1em; text-align: center;">
+                        <button onclick="downloadReport()" style="background:#059669; color:white; border:none; padding:0.8em 1.5em; border-radius:8px; font-size:1em; cursor:pointer; transition: all 0.3s ease;">
+                            📄 Download Detailed Report
+                        </button>
+                    </div>
+                `;
+                
+                // Smooth scroll to results
+                resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Reset button
+                predictBtn.disabled = false;
+                predictBtn.textContent = 'Predict Asteroid Hazard';
+                
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                
+                // Hide loading indicator
+                loadingIndicator.style.display = 'none';
+                
+                // Show error message
+                resultsContainer.style.display = 'block';
+                resultsContainer.innerHTML = `
+                    <div class="alert alert-danger" style="border-radius: 12px; border: 2px solid #ff4c4c; background: rgba(255,76,76,0.1);">
+                        <div style="display: flex; align-items: center; gap: 1em;">
+                            <div style="font-size: 2em;">❌</div>
+                            <div>
+                                <strong>Error occurred during prediction</strong>
+                                <div style="margin-top: 0.5em;">Please check your inputs and try again.</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // Reset button
+                predictBtn.disabled = false;
+                predictBtn.textContent = 'Predict Asteroid Hazard';
+            });
+        });
+        
+        function downloadReport() {
+            window.open('/download_report', '_blank');
+        }
+    </script>
+    
+    <!-- Animation styles for smooth results display -->
+    <style>
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        #loadingIndicator span {
+            animation: pulse 1.5s infinite;
+        }
+    </style>
 </body>
 </html>
 

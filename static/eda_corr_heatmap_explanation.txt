@@ -1,0 +1,1 @@
+This heatmap shows the pairwise correlations between input features. Brighter red or blue indicates stronger positive or negative correlation, respectively. Near-zero values mean the features are largely independent.

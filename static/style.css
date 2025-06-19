@@ -21,8 +21,8 @@ body {
 
 .container {
   width: 100vw;
-  max-width: none;
-  margin: 0;
+  max-width: 1300px;
+  margin: 0 auto;
   padding: 3em 6vw 3em 6vw;
   background: none;
   border-radius: 0;
@@ -250,7 +250,7 @@ th, td {
   background: rgba(20, 32, 56, 0.98);
   border-radius: 18px;
   box-shadow: 0 2px 24px #0ff1ff33, 0 1.5px 8px #2563eb22;
-  max-width: 700px;
+  max-width: 900px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -265,12 +265,29 @@ th, td {
   text-shadow: 0 2px 12px #0ff1ffcc;
   text-align: center;
 }
+.feature-importance-desc {
+  margin: 1.5em auto 1.5em auto;
+  max-width: 700px;
+  font-size: 1.15em;
+  color: #b6eaff;
+  background: rgba(16,28,43,0.85);
+  border-radius: 12px;
+  padding: 1.2em 2em;
+  text-align: center;
+  box-shadow: 0 1px 12px #0ff1ff22;
+  letter-spacing: 0.01em;
+  line-height: 1.7;
+}
 .feature-importance-items {
   display: flex;
-  flex-direction: row;
-  gap: 2.5em;
+  flex-wrap: wrap;
+  gap: 2em 2.5em;
   justify-content: center;
+  align-items: stretch;
   width: 100%;
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
 }
 .feature-importance-item {
   background: rgba(16, 28, 43, 0.98);
@@ -281,6 +298,9 @@ th, td {
   flex-direction: column;
   align-items: center;
   min-width: 120px;
+  max-width: 180px;
+  margin-bottom: 1em;
+  flex: 1 1 140px;
 }
 .feature-name {
   color: #7ecbff;
@@ -297,34 +317,34 @@ th, td {
   text-shadow: 0 2px 12px #0ff1ffcc;
   letter-spacing: 0.01em;
 }
-@media (max-width: 700px) {
-  .feature-importance-items {
-    flex-direction: column;
-    gap: 1.2em;
-    align-items: center;
-  }
+@media (max-width: 900px) {
   .feature-importance-list {
     padding: 1.2em 1vw 1em 1vw;
+    max-width: 99vw;
   }
-}
-
-.feature-importance-desc {
-  margin: 1.5em auto 0.5em auto;
-  max-width: 900px;
-  font-size: 1.25em;
-  color: #b6eaff;
-  background: rgba(16,28,43,0.85);
-  border-radius: 12px;
-  padding: 1.2em 2em;
-  text-align: center;
-  box-shadow: 0 1px 12px #0ff1ff22;
-  letter-spacing: 0.01em;
-  line-height: 1.7;
-}
-@media (max-width: 900px) {
   .feature-importance-desc {
     font-size: 1em;
     padding: 0.8em 1em;
+    max-width: 99vw;
+  }
+  .feature-importance-items {
+    gap: 1.2em 1em;
+  }
+  .feature-importance-item {
+    min-width: 100px;
+    max-width: 99vw;
+    padding: 1em 1.2em;
+    flex: 1 1 100px;
+  }
+}
+@media (max-width: 700px) {
+  .feature-importance-items {
+    flex-direction: column;
+    gap: 1em;
+    align-items: center;
+  }
+  .feature-importance-list {
+    padding: 1em 0.5vw 0.7em 0.5vw;
   }
 }
 
@@ -680,65 +700,45 @@ th, td {
 }
 
 .model-comparison-section {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  background: linear-gradient(90deg, #101c2b 80%, #0ff1ff22 100%);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2em 1em;
+  background: rgba(16,28,43,0.95);
   border-radius: 18px;
-  box-shadow: 0 4px 32px #0ff1ff33, 0 1.5px 8px #2563eb22;
+  box-shadow: 0 4px 24px #0ff1ff33, 0 2px 12px #2563eb22;
   border: 2px solid #223a5e;
-  width: 100vw;
-  min-width: 340px;
-  max-width: 1300px;
-  min-height: 650px;
-  margin: 2.5em auto 2.5em auto;
-  padding: 3.5em 4vw 3.5em 4vw;
-  gap: 2.5em;
-  box-sizing: border-box;
-  transition: box-shadow 0.3s, background 0.3s;
-  overflow-x: auto;
-}
-.model-comparison-title, .model-comparison-section h2 {
-  font-size: 2.2em;
-  font-weight: 700;
-  color: #7ecbff;
-  margin: 1.2em 0 0.5em 0;
-  letter-spacing: 0.01em;
-  text-shadow: 0 2px 12px #0a2540cc;
-  text-align: center;
-  font-family: 'Inter', Arial, sans-serif;
 }
 .model-comparison-matrices-row {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: 2.7em;
+  align-items: stretch;
+  justify-content: center;
+  gap: 1.5em;
   width: 100%;
-  margin: 0 0 1.5em 0;
+  margin: 2em 0;
   flex-wrap: wrap;
   transition: gap 0.3s;
 }
 .model-comparison-matrix-card {
   background: #101c2b;
-  border-radius: 14px;
-  box-shadow: 0 2px 18px #0ff1ff22, 0 1.5px 8px #2563eb22;
-  border: 1.5px solid #223a5e;
-  padding: 2em 1.5em 2em 1.5em;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px #0ff1ff33, 0 2px 10px #2563eb22;
+  border: 2px solid #223a5e;
+  padding: 1.5em 1.2em;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
   min-width: 260px;
-  max-width: 340px;
-  min-height: 220px;
+  max-width: 320px;
+  min-height: 280px;
   width: 100%;
   box-sizing: border-box;
   transition: box-shadow 0.25s, border 0.25s, background 0.25s;
-  margin-bottom: 0;
-  opacity: 0;
-  animation: fadeIn 0.7s ease forwards;
-  flex: 1 1 300px;
+  margin-bottom: 1em;
+  opacity: 1;
+  flex: 1 1 260px;
+  overflow: hidden;
 }
 .model-comparison-matrix-card:not(:last-child) {
   margin-right: 0;
@@ -756,28 +756,65 @@ th, td {
 .model-comparison-matrix-card .confusion-matrix-table {
   margin: 0 auto;
   width: 100%;
-  max-width: 260px;
+  min-width: 200px;
+  max-width: 280px;
   background: #101c2b;
-  border-radius: 10px;
+  border-radius: 14px;
   box-shadow: 0 2px 12px #0ff1ff22, 0 1.5px 8px #2563eb22;
   border: 1.5px solid #223a5e;
   text-align: center;
-  font-size: 1.15em;
+  font-size: 1em;
+  table-layout: fixed;
+  overflow: hidden;
 }
 .model-comparison-matrix-card .confusion-matrix-table th,
 .model-comparison-matrix-card .confusion-matrix-table td {
-  padding: 1.1em 1.2em;
+  padding: 0.8em 0.5em;
   text-align: center;
+  font-size: 1em;
+  word-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-@media (max-width: 900px) {
+@media (max-width: 1200px) {
   .model-comparison-matrix-card {
-    max-width: 99vw;
     min-width: 180px;
+    max-width: 99vw;
     padding: 1.2em 0.7em;
     flex: 1 1 180px;
   }
   .model-comparison-matrix-card .confusion-matrix-table {
+    min-width: 140px;
     max-width: 99vw;
+    font-size: 1em;
+  }
+  .model-comparison-matrix-card .confusion-matrix-table th,
+  .model-comparison-matrix-card .confusion-matrix-table td {
+    padding: 0.7em 0.5em;
+    font-size: 1em;
+  }
+}
+@media (max-width: 700px) {
+  .model-comparison-matrices-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2em;
+  }
+  .model-comparison-matrix-card {
+    min-width: 98vw;
+    max-width: 98vw;
+    padding: 0.7em 0.5em;
+    flex: 1 1 98vw;
+  }
+  .model-comparison-matrix-card .confusion-matrix-table {
+    min-width: 98vw;
+    max-width: 98vw;
+    font-size: 0.95em;
+  }
+  .model-comparison-matrix-card .confusion-matrix-table th,
+  .model-comparison-matrix-card .confusion-matrix-table td {
+    padding: 0.5em 0.3em;
+    font-size: 0.95em;
   }
 }
 .model-comparison-table-block,
@@ -789,11 +826,19 @@ th, td {
   margin-right: auto;
   box-sizing: border-box;
 }
-.model-comparison-matrix-card h3 {
-  font-size: 1.1em;
-  color: #7ecbff;
-  margin-bottom: 0.7em;
+.model-comparison-matrix-card h3, .cm-model-label {
+  font-size: 1em;
+  margin-bottom: 0.8em;
   text-align: center;
+  word-break: break-word;
+  white-space: normal;
+  padding: 0 0.2em;
+  color: #7ecbff;
+  font-weight: 700;
+  line-height: 1.3;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .model-comparison-matrix-card img, .model-comparison-matrix-card canvas {
   width: 100%;
@@ -880,90 +925,60 @@ th, td {
 }
 
 /* Model Dropdown Large & Prominent (Dark Theme, Responsive, Unified with Button) */
-.model-dropdown-label {
-  font-size: 1.35em;
-  color: #7ecbff;
-  font-weight: 600;
-  margin-right: 1.2em;
-  letter-spacing: 0.01em;
-  text-shadow: 0 2px 12px #0ff1ff33;
-  display: inline-block;
-  vertical-align: middle;
-}
-.model-dropdown-large {
-  font-size: 1.35em !important;
-  padding: 1em 2.5em !important;
-  border-radius: 14px !important;
-  background: #101c2b !important;
-  color: #eaf1fb !important;
-  border: 2px solid #223a5e !important;
-  font-weight: 600;
-  box-shadow: 0 2px 18px #0ff1ff22, 0 1.5px 8px #2563eb22;
-  margin-left: 0.5em;
-  margin-bottom: 0;
-  min-width: 260px;
-  max-width: 420px;
-  width: fit-content;
-  transition: border 0.2s, box-shadow 0.2s;
-  outline: none;
-  vertical-align: middle;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  text-align: center;
-  text-align-last: center;
-}
-.model-dropdown-large:focus {
-  border: 2px solid #0ff1ff !important;
-  box-shadow: 0 0 0 3px #0ff1ff33;
-}
-.model-dropdown-large option {
-  background: #101c2b;
-  color: #eaf1fb;
+.model-dropdown-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  margin: 1.5em auto;
+  width: 100%;
+  max-width: 700px;
     text-align: center;
 }
 
-/* Dropdown and Button Row Alignment */
-.model-dropdown-row {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 1.2em;
-  margin: 0 auto 0.7em auto;
-  width: 100%;
-  max-width: 700px;
+.model-dropdown-label {
+  font-size: 1.2em;
+  font-weight: 600;
+  color: #7ecbff;
+  text-align: right;
+  min-width: 140px;
 }
 
-/* Model Comparison Toggle Button (Unified with Dropdown) */
-.model-compare-toggle {
-  font-size: 1.35em;
-  padding: 1em 2.5em;
-  border-radius: 14px;
-  background: linear-gradient(90deg, #0ff1ff 60%, #2563eb 100%);
-  color: #fff;
-  border: none;
-  font-weight: 700;
-  cursor: pointer;
-  margin: 0 0 0 0;
-  box-shadow: 0 2px 16px #0ff1ff33, 0 1.5px 8px #2563eb22;
-  letter-spacing: 0.01em;
-  text-shadow: 0 1px 8px #0a2540cc;
-  transition: background 0.18s, box-shadow 0.18s, transform 0.12s;
-  height: 56px;
-  min-width: 260px;
-  display: inline-block;
-  vertical-align: middle;
-  padding: 1em 3.2em;
-  max-width: 100vw;
+.model-dropdown-large {
+  font-size: 1.1em !important;
+  line-height: 1.4 !important;
+  padding: 0.6em 1em !important;
+  height: auto !important;
+  min-height: 52px !important;
+  border-radius: 12px !important;
+  border: 2px solid #223a5e !important;
+  background: #101c2b !important;
+  color: #eaf1fb !important;
+  font-weight: 600;
+  text-align: center;
+  text-align-last: center;
+  appearance: none;
+  overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  overflow: hidden;
+  box-shadow: 0 2px 16px #0ff1ff33, 0 1.5px 8px #2563eb22;
 }
-.model-compare-toggle:hover {
-  background: linear-gradient(90deg, #2563eb 60%, #0ff1ff 100%);
-  transform: translateY(-2px) scale(1.04);
-  box-shadow: 0 4px 24px #0ff1ff44, 0 2px 12px #2563eb33;
+
+.model-compare-toggle {
+  font-size: 1.1em;
+  padding: 0.8em 1.5em;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #0ff1ff 60%, #2563eb 100%);
+  color: #fff;
+  font-weight: 700;
+  border: none;
+  white-space: nowrap;
+  max-width: 100%;
+  height: 52px;
+  text-align: center;
+  text-shadow: 0 1px 8px #0a2540cc;
+  box-shadow: 0 2px 12px #0ff1ff33, 0 1.5px 6px #2563eb22;
 }
 
 /* Consistent Section Spacing */
@@ -987,7 +1002,7 @@ th, td {
 }
 .model-section {
   width: 100vw;
-  max-width: 1100px;
+  max-width: 1300px;
   min-width: 340px;
   min-height: 800px;
   margin: 3em auto 3em auto;
@@ -1004,18 +1019,17 @@ th, td {
   box-sizing: border-box;
   transition: box-shadow 0.3s, background 0.3s;
   overflow-x: hidden;
+  padding-left: 5vw !important;
+  padding-right: 5vw !important;
 }
 .model-section .confusion-matrix-table,
 .model-section .metrics-table {
-  margin: 0 auto 2em auto;
-  width: 100%;
-  max-width: 700px;
-  background: #101c2b;
+  width: 100% !important;
+  max-width: 100%;
+  min-width: 0;
+  margin-left: 0;
+  margin-right: 0;
   border-radius: 18px;
-  box-shadow: 0 3px 24px #0ff1ff22, 0 2px 10px #2563eb22;
-  border: 2px solid #223a5e;
-  text-align: center;
-  font-size: 1.45em;
 }
 .model-section .confusion-matrix-table th,
 .model-section .confusion-matrix-table td,
@@ -1028,6 +1042,19 @@ th, td {
 .model-section h3, .model-section .cm-model-label {
   font-size: 1.5em;
   margin-bottom: 1em;
+}
+.model-section .metrics-table {
+  width: 100% !important;
+  max-width: 1100px;
+  margin: 2em auto 0 auto;
+  display: block;
+  font-size: 1.15em;
+  table-layout: auto;
+}
+.model-section .metrics-table th,
+.model-section .metrics-table td {
+  padding: 1em 1.2em;
+  min-width: 90px;
 }
 @media (max-width: 1200px) {
   .model-section {
@@ -1135,18 +1162,624 @@ th, td {
   text-align: center;
 }
 @media (max-width: 900px) {
+  .model-comparison-section {
+    padding: 1em 0.5em;
+    margin: 1em auto;
+  }
+  
   .model-comparison-matrices-row {
     flex-direction: column;
     gap: 1.2em;
-    align-items: flex-start;
+    align-items: center;
+    margin: 1em 0;
   }
+  
   .model-comparison-matrix-card {
-    max-width: 99vw;
-    min-width: 0;
-    padding: 0.7em 0.5em;
-    flex: 1 1 120px;
+    max-width: 95vw;
+    min-width: 280px;
+    padding: 1em;
+    flex: 1 1 auto;
+    min-height: 240px;
   }
+  
   .model-comparison-matrix-card .confusion-matrix-table {
-    max-width: 99vw;
+    max-width: 100%;
+    min-width: 200px;
+  }
+  
+  .model-comparison-summary {
+    margin: 1.5em auto !important;
+    padding: 1.5em !important;
+    max-width: 95vw !important;
+  }
+  
+  .model-comparison-summary h4 {
+    font-size: 1.2em !important;
+  }
+  
+  .model-comparison-summary p {
+    font-size: 1em !important;
+  }
+}
+
+/* Accordion header hover fixes */
+.accordion-header:hover {
+    background: #16243a !important;
+}
+
+.accordion-button:hover {
+    background: #16243a !important;
+}
+
+.accordion-button:focus {
+    background: #16243a !important;
+}
+
+/* Custom accordion indicators */
+.accordion-button::after {
+    content: "▶" !important;
+    background-image: none !important;
+    font-size: 0.9em !important;
+    color: #7ecbff !important;
+    transform: none !important;
+    transition: transform 0.2s ease !important;
+}
+
+.accordion-button:not(.collapsed)::after {
+    content: "▼" !important;
+    transform: none !important;
+}
+
+.accordion-button.collapsed::after {
+    content: "▶" !important;
+    transform: none !important;
+}
+
+/* Content readability improvements */
+table, .card, .accordion-body {
+    color: white !important;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Dashboard Overview content styling for better readability */
+#overviewCollapse .accordion-body {
+    font-size: 1.3em !important;
+    line-height: 1.6 !important;
+    padding: 2.5em !important;
+}
+
+#overviewCollapse .accordion-body h2 {
+    font-size: 2.2em !important;
+    color: #7ecbff !important;
+    margin-bottom: 1em !important;
+    text-align: center !important;
+}
+
+#overviewCollapse .accordion-body p {
+    font-size: 1.3em !important;
+    line-height: 1.7 !important;
+    margin-bottom: 1.5em !important;
+}
+
+#overviewCollapse .accordion-body ul {
+    font-size: 1.3em !important;
+    line-height: 1.6 !important;
+    margin: 1em 0 1.5em 2em !important;
+}
+
+#overviewCollapse .accordion-body li {
+    margin-bottom: 0.7em !important;
+}
+
+/* Ensure ALL strong elements in Dashboard Overview are consistently sized */
+#overviewCollapse .accordion-body strong {
+    color: #00eaff !important;
+    font-weight: 700 !important;
+    font-size: 1.3em !important;
+    line-height: 1.4 !important;
+}
+
+/* Section descriptions styling */
+.section-description {
+    background: rgba(16,28,43,0.85) !important;
+    border-radius: 12px !important;
+    padding: 1.5em 2em !important;
+    margin-bottom: 2em !important;
+    border-left: 4px solid #00eaff !important;
+    font-size: 1.1em !important;
+    line-height: 1.6 !important;
+    color: #b6eaff !important;
+}
+
+.section-description p {
+    margin-bottom: 1em !important;
+    font-size: 1.1em !important;
+}
+
+.section-description p:last-child {
+    margin-bottom: 0 !important;
+}
+
+.section-description strong {
+    color: #00eaff !important;
+    font-weight: 700 !important;
+    font-size: 1.1em !important;
+}
+
+#overviewCollapse .accordion-body em {
+    color: #b6eaff !important;
+    font-style: italic !important;
+    display: block !important;
+    text-align: center !important;
+    margin-top: 2em !important;
+    font-size: 1.1em !important;
+}
+
+/* Fix table header wrapping */
+table th {
+    white-space: nowrap !important;
+    padding: 1em 1.5em !important;
+    min-width: fit-content;
+}
+
+/* Ensure predictions table has proper spacing */
+#predictionsTable {
+    table-layout: auto !important;
+    width: 100% !important;
+}
+
+#predictionsTable th {
+    white-space: nowrap !important;
+    text-overflow: ellipsis;
+    padding: 1.2em 1.5em !important;
+}
+
+/* Dashboard Collapsible Styles (for all major blocks) */
+.dashboard-collapsible {
+  width: 100vw;
+  margin: 0 0 2em 0;
+  max-width: none;
+  border-radius: 0;
+  background: linear-gradient(90deg, #101c2b 80%, #0ff1ff22 100%);
+  box-shadow: 0 2px 24px #0ff1ff33, 0 1.5px 8px #2563eb22;
+  border: 1.5px solid #223a5e;
+  overflow: hidden;
+}
+.dashboard-collapsible input[type="checkbox"] {
+  display: none;
+}
+.dashboard-collapsible .about-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 2em 6vw 2em 6vw;
+  font-size: 2.2em;
+  font-weight: 700;
+  color: #7ecbff;
+  background: #101c2b;
+  letter-spacing: 0.01em;
+  user-select: none;
+  transition: background 0.2s;
+}
+.dashboard-collapsible .about-header:hover {
+  background: #16243a;
+}
+.dashboard-collapsible .about-arrow {
+  font-size: 2em;
+  margin-left: 1em;
+  transition: transform 0.3s;
+}
+#hazardous-toggle:not(:checked) + .about-header .about-arrow,
+#diameter-toggle:not(:checked) + .about-header .about-arrow,
+#corr-toggle:not(:checked) + .about-header .about-arrow,
+#pca-toggle:not(:checked) + .about-header .about-arrow,
+#model-toggle:not(:checked) + .about-header .about-arrow,
+#featureimp-toggle:not(:checked) + .about-header .about-arrow {
+  transform: rotate(-90deg);
+}
+#hazardous-toggle:checked + .about-header .about-arrow,
+#diameter-toggle:checked + .about-header .about-arrow,
+#corr-toggle:checked + .about-header .about-arrow,
+#pca-toggle:checked + .about-header .about-arrow,
+#model-toggle:checked + .about-header .about-arrow,
+#featureimp-toggle:checked + .about-header .about-arrow {
+  transform: rotate(0deg);
+}
+#hazardous-toggle:not(:checked) ~ .about-content,
+#diameter-toggle:not(:checked) ~ .about-content,
+#corr-toggle:not(:checked) ~ .about-content,
+#pca-toggle:not(:checked) ~ .about-content,
+#model-toggle:not(:checked) ~ .about-content,
+#featureimp-toggle:not(:checked) ~ .about-content {
+  max-height: 0;
+  opacity: 0;
+  padding: 0 6vw;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.3s, padding 0.3s;
+}
+#hazardous-toggle:checked ~ .about-content,
+#diameter-toggle:checked ~ .about-content,
+#corr-toggle:checked ~ .about-content,
+#pca-toggle:checked ~ .about-content,
+#model-toggle:checked ~ .about-content,
+#featureimp-toggle:checked ~ .about-content {
+  max-height: 2000px;
+  opacity: 1;
+  padding: 2em 6vw 2.5em 6vw;
+  transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1), opacity 0.3s, padding 0.3s;
+}
+.dashboard-collapsible .about-content {
+  background: none;
+  color: #eaf6ff;
+  font-size: 1.3em;
+  line-height: 1.8;
+  box-sizing: border-box;
+}
+@media (max-width: 900px) {
+  .dashboard-collapsible {
+    width: 100vw;
+    margin: 0 0 1em 0;
+    border-radius: 0;
+  }
+  .dashboard-collapsible .about-header, .dashboard-collapsible .about-content {
+    padding-left: 4vw;
+    padding-right: 4vw;
+  }
+  .dashboard-collapsible .about-header {
+    font-size: 1.2em;
+    padding-top: 1.2em;
+    padding-bottom: 1.2em;
+  }
+  .dashboard-collapsible .about-arrow {
+    font-size: 1.2em;
+  }
+  .dashboard-collapsible .about-content {
+    font-size: 1em;
+    padding-top: 1.2em;
+    padding-bottom: 1.2em;
+  }
+}
+
+.model-select-btn {
+  font-size: 1.15em;
+  padding: 0.8em 2em;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #2563eb 60%, #0ff1ff 100%);
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  margin: 0.2em 0.5em;
+  min-width: 220px;
+  max-width: 420px;
+  width: auto;
+  box-shadow: 0 2px 16px #2563eb33, 0 1.5px 8px #0ff1ff22;
+  letter-spacing: 0.01em;
+  text-shadow: 0 1px 8px #0a2540cc;
+  transition: background 0.18s, box-shadow 0.18s, transform 0.12s;
+  text-align: center;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+  display: inline-block;
+}
+.model-select-btn.selected {
+  background: linear-gradient(90deg, #0ff1ff 60%, #2563eb 100%);
+  border: 2px solid #0ff1ff;
+}
+
+/* Prediction form grid styling */
+form[action="/predict"] div[style*="grid"] {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 1.5em !important;
+    margin-bottom: 1.5em !important;
+}
+
+form[action="/predict"] div[style*="grid"] > div {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.5em !important;
+}
+
+@media (max-width: 900px) {
+  .model-compare-toggle, .model-dropdown-large {
+    font-size: 1em !important;
+    padding: 0.7em 1.2em !important;
+    min-width: 160px;
+    height: 44px;
+    margin: 0 0.2em 0 0.2em;
+  }
+  
+  /* Mobile responsive for Dashboard Overview */
+  #overviewCollapse .accordion-body {
+    font-size: 1.1em !important;
+    padding: 1.5em !important;
+  }
+  
+  #overviewCollapse .accordion-body h2 {
+    font-size: 1.8em !important;
+  }
+  
+  #overviewCollapse .accordion-body p,
+  #overviewCollapse .accordion-body ul {
+    font-size: 1.1em !important;
+  }
+  
+  /* Mobile responsive for prediction form */
+  form[action="/predict"] div[style*="grid"] {
+    grid-template-columns: 1fr !important;
+    gap: 1em !important;
+  }
+}
+
+/* Model explanation text styling */
+.model-explanation-text {
+  font-size: 1.1em !important;
+  line-height: 1.6 !important;
+  color: #e0e0e0 !important;
+  margin-top: 1em !important;
+  padding: 1.5em 2em !important;
+  background: rgba(16,28,43,0.9) !important;
+  border-radius: 12px !important;
+  border-left: 4px solid #00eaff !important;
+  max-width: 800px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-align: left !important;
+  transition: opacity 0.3s ease-in-out !important;
+  opacity: 1 !important;
+}
+
+/* Model explanation button styling */
+#modelExplanationBtn {
+  font-size: 1.1em !important;
+  font-weight: 600 !important;
+  border-radius: 10px !important;
+  background: linear-gradient(90deg, #2563eb 60%, #0ff1ff 100%) !important;
+  border: none !important;
+  color: white !important;
+  min-width: 280px !important;
+  padding: 0.75em 1.5em !important;
+  transition: background 0.2s ease, transform 0.1s ease !important;
+}
+
+#modelExplanationBtn:hover {
+  background: linear-gradient(90deg, #0ff1ff 60%, #2563eb 100%) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Comprehensive accordion button hover fix to prevent header shrinking */
+.accordion-button:hover,
+.accordion-button:focus,
+.accordion-button:active {
+  transform: none !important;
+  scale: none !important;
+  font-size: inherit !important;
+  box-shadow: none !important;
+  padding: inherit !important;
+  margin: inherit !important;
+  line-height: inherit !important;
+  height: auto !important;
+  width: auto !important;
+  border: inherit !important;
+  transition: background-color 0.15s ease-in-out !important;
+}
+
+/* Also fix any child elements inside accordion buttons */
+.accordion-button:hover *,
+.accordion-button:focus *,
+.accordion-button:active * {
+  transform: none !important;
+  scale: none !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+}
+
+/* Override Bootstrap's default accordion button styles completely */
+.accordion-item .accordion-header .accordion-button:hover,
+.accordion-item .accordion-header .accordion-button:focus,
+.accordion-item .accordion-header .accordion-button:active {
+  transform: none !important;
+  scale: none !important;
+  font-size: 1.5em !important;
+  font-weight: 700 !important;
+  padding: 1rem 1.25rem !important;
+  line-height: 1.2 !important;
+  height: auto !important;
+  width: 100% !important;
+  border: none !important;
+  background: #16243a !important;
+  color: #7ecbff !important;
+}
+
+/* Enhanced Chart Info Toggle Styling */
+.chart-info-toggle {
+  margin: 1.5em 0 2em 0 !important;
+  text-align: center !important;
+}
+
+.chart-info-btn {
+  font-size: 1.1em !important;
+  font-weight: 600 !important;
+  padding: 0.8em 1.5em !important;
+  border-radius: 10px !important;
+  background: linear-gradient(135deg, #2563eb 0%, #0ea5e9 100%) !important;
+  border: none !important;
+  color: white !important;
+  box-shadow: 0 2px 12px rgba(37, 99, 235, 0.3) !important;
+  transition: all 0.3s ease !important;
+  min-width: 250px !important;
+  cursor: pointer !important;
+}
+
+.chart-info-btn:hover {
+  background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.4) !important;
+  color: white !important;
+}
+
+.chart-info-btn .toggle-icon {
+  font-size: 0.9em !important;
+  margin-right: 0.5em !important;
+  transition: transform 0.3s ease !important;
+}
+
+.chart-info-btn.expanded .toggle-icon {
+  transform: rotate(90deg) !important;
+}
+
+.chart-info-content {
+  max-width: 900px !important;
+  margin: 1.5em auto 0 auto !important;
+  padding: 0 !important;
+  transition: all 0.4s ease !important;
+}
+
+.chart-explanation {
+  background: linear-gradient(135deg, rgba(16,28,43,0.95) 0%, rgba(22,36,58,0.95) 100%) !important;
+  border-radius: 12px !important;
+  padding: 2em !important;
+  border-left: 5px solid #00eaff !important;
+  box-shadow: 0 4px 20px rgba(0,234,255,0.2) !important;
+  text-align: left !important;
+}
+
+.chart-explanation h4 {
+  color: #00eaff !important;
+  font-size: 1.3em !important;
+  font-weight: 700 !important;
+  margin: 0 0 1em 0 !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.chart-explanation p {
+  color: #e0e6ed !important;
+  font-size: 1.1em !important;
+  line-height: 1.7 !important;
+  margin-bottom: 1.5em !important;
+}
+
+.chart-explanation ul {
+  color: #e0e6ed !important;
+  font-size: 1.05em !important;
+  line-height: 1.6 !important;
+  margin: 0 0 1.5em 1.5em !important;
+  padding: 0 !important;
+}
+
+.chart-explanation li {
+  margin-bottom: 0.8em !important;
+}
+
+.chart-explanation li strong {
+  color: #7ecbff !important;
+  font-weight: 600 !important;
+}
+
+/* Info toggle styling for explanation buttons (legacy) */
+.info-toggle .btn-outline-info {
+  border-color: #7ecbff !important;
+  color: #7ecbff !important;
+  background: transparent !important;
+  font-size: 0.9em !important;
+  padding: 0.5em 1em !important;
+  border-radius: 8px !important;
+  transition: all 0.2s ease !important;
+}
+
+.info-toggle .btn-outline-info:hover {
+  background: #7ecbff !important;
+  color: #101c2b !important;
+  border-color: #7ecbff !important;
+}
+
+.info-toggle .text-light {
+  background: rgba(16,28,43,0.9) !important;
+  border-radius: 8px !important;
+  padding: 1em !important;
+  border-left: 3px solid #7ecbff !important;
+  margin-top: 0.5em !important;
+  line-height: 1.5 !important;
+}
+
+/* Chart info box styling */
+.chart-info-box {
+  font-size: 1.1em !important;
+  line-height: 1.7em !important;
+  background: #111827 !important;
+  color: #e0e0e0 !important;
+  border-left: 4px solid #00eaff !important;
+  border-radius: 6px !important;
+  padding: 1.5em 2em !important;
+  margin-top: 1em !important;
+  margin-bottom: 2em !important;
+}
+
+.chart-info-box .card {
+  background: #111827 !important;
+  border: none !important;
+  color: #e0e0e0 !important;
+}
+
+.chart-info-box h4 {
+  color: #00eaff !important;
+  font-weight: 700 !important;
+  margin-bottom: 1em !important;
+}
+
+.chart-info-box p {
+  color: #e0e0e0 !important;
+  line-height: 1.7 !important;
+  margin-bottom: 1.5em !important;
+}
+
+.chart-info-box ul {
+  color: #e0e0e0 !important;
+  line-height: 1.6 !important;
+  margin: 0 0 1.5em 1.5em !important;
+}
+
+.chart-info-box li {
+  margin-bottom: 0.8em !important;
+}
+
+.chart-info-box li strong {
+  color: #7ecbff !important;
+  font-weight: 600 !important;
+}
+
+/* Responsive design for chart info toggles */
+@media (max-width: 900px) {
+  .chart-info-btn {
+    font-size: 1em !important;
+    padding: 0.7em 1.2em !important;
+    min-width: 200px !important;
+  }
+  
+  .chart-explanation {
+    padding: 1.5em !important;
+  }
+  
+  .chart-explanation h4 {
+    font-size: 1.2em !important;
+  }
+  
+  .chart-explanation p,
+  .chart-explanation ul {
+    font-size: 1em !important;
+  }
+  
+  .chart-info-box {
+    font-size: 1em !important;
+    padding: 1.2em 1.5em !important;
+  }
+  
+  .chart-info-box .card {
+    max-width: 100% !important;
+    padding: 1.5em !important;
   }
 }

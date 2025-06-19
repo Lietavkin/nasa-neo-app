@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="container mt-4">
+    <h1 class="mb-4">{{ title }}</h1>
+    {% for table in tables %}
+        {{ table|safe }}
+    {% endfor %}
+    <a href="/" class="btn btn-primary mt-3">Back to Dashboard</a>
+</body>
+</html> 

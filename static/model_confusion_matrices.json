@@ -1,32 +1,72 @@
 {
   "Random Forest": [
     [
-      46,
-      2
+      69,
+      0
     ],
     [
-      3,
-      4
+      0,
+      6
     ]
   ],
   "Decision Tree": [
     [
-      45,
-      3
+      69,
+      0
     ],
     [
-      2,
-      5
+      0,
+      6
     ]
   ],
   "Logistic Regression": [
     [
-      45,
-      3
+      68,
+      1
     ],
     [
-      7,
+      6,
       0
+    ]
+  ],
+  "KNN": [
+    [
+      69,
+      0
+    ],
+    [
+      6,
+      0
+    ]
+  ],
+  "Support Vector Machine": [
+    [
+      69,
+      0
+    ],
+    [
+      6,
+      0
+    ]
+  ],
+  "XGBoost": [
+    [
+      69,
+      0
+    ],
+    [
+      0,
+      6
+    ]
+  ],
+  "My Hazard Classifier \u2013 NASA Style": [
+    [
+      69,
+      0
+    ],
+    [
+      0,
+      6
     ]
   ]
 }
